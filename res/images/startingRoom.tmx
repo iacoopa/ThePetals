@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="collision" tilewidth="32" tileheight="32">
+  <tile id="0">
+   <image format="png">
+    <data encoding="base64">iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOwwAADsMBx2+oZAAAADRJREFUWIXtzjEBADAIxMCnOjrWvzM0FBksFwO56vt+FjubcwAAAAAAAAAAAAAAAAAAgCQZFj4CbKf1CI0AAAAASUVORK5CYII=</data>
+   </image>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+   <image format="png">
+    <data encoding="base64"></data>
+   </image>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="hifi_map" tilewidth="32" tileheight="32">
+  <image ="hifi_map.png" trans="ffffff" width="512" height="512"/>
+ </tileset>
+ <layer name="collision" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKQDphTgM4PadmBzN639QYuwomV8ELJ/1I5RO2hlB60xAOs8AFY=
+  </data>
+ </layer>
+ <layer name="Floor" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAEbFjEKAWcVMASODApdnBQwQ5CZlDbHxw42PjcIoFDnJrxgcsd1LCDUBgTE1aUYmL9QYmdyHYQaw42dfj0UiM+CNlFz/igNQAADMUJ+w==
+  </data>
+ </layer>
+ <layer name="Walls" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjZmBgYMaC2XCIE8K49BELcKnFZwapdpBqN0yOjQ52UNMf+OKJloDW9tDbH7QEbAzUSVf4wGAMK3LcQ24ZRWpZBgDbzgEV
+  </data>
+ </layer>
+ <layer name="Objects" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAdmEBDs2kJeoG4H4h76GhnNx3tGgWjYBTgBgAzoQLE
+  </data>
+ </layer>
+</map>

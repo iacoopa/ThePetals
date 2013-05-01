@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="collision" tilewidth="32" tileheight="32">
+  <image source="collision.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="hifi_map" tilewidth="32" tileheight="32">
+  <image source="hifi_map.png" width="512" height="512"/>
+ </tileset>
+ <layer name="collision" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKQDzqQhHrVj1I5RO0aOHbTGABW3aA4=
+  </data>
+ </layer>
+ <layer name="Walls" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYKIDpiUYtWPUjlE7Ro4dtMYAc+MAkQ==
+  </data>
+ </layer>
+ <layer name="Objects" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRAAMABRQAAQ==
+  </data>
+ </layer>
+</map>

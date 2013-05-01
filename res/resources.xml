@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- basedir -->
+	<basedir path="res" />
+	<!-- sounds -->
+	<!-- songs -->
+	<!-- images -->
+	<!-- sheets -->
+	<sheet key="char_sheet" file="/images/lofi_char.png" />
+	<sheet key="obj_sheet" file="/images/lofi_obj.png" />
+	<sheet key="env_sheet" file="/images/lofi_environment.png" 	/>
+	<!-- fonts -->
+</resources>
