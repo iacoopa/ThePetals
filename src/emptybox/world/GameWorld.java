@@ -6,10 +6,12 @@ import it.marteEngine.entity.Entity;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheetFont;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -24,17 +26,19 @@ public class GameWorld extends World {
 	public MapGrid grid;
 	private UserInterface ui;
 	private Player player;
+	private AngelCodeFont font;
 
 	public GameWorld(int id, GameContainer container) throws SlickException {
 		super(id, container);
 		ui = new UserInterface();
 		addDoors();		
-		player = new Player(400, 400);
+		font = new AngelCodeFont("res/font.fnt", "res/font_0.png");
 	}
 
 	public void setGrid(MapGrid grid) throws SlickException {
 		this.grid = grid;
 		grid.addDoors();
+		player = new Player(400, 400, 350, 10, 10, grid);
 	}
 
 	@Override
@@ -49,15 +53,17 @@ public class GameWorld extends World {
 		g.fillRect(0, 0, 608, 192);
 		g.fillRect(0, 192, 800, 480);
 		ui.renderoutside(g);
+		font.drawString(65, 135, "Find the Petals.");
 		grid.getSelectedRoom().render(g);
 		super.render(container, game, g);
 		g.translate(-1216 + grid.distance(), 0);
+		System.out.println(container.getFPS());
 	}
 	
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		super.update(container, game, delta);
-				
+						
 		for (Entity e : grid.getSelectedRoom().entities) {
 			if (!getEntities().contains(e)) {
 				add(e, World.GAME);

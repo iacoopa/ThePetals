@@ -19,12 +19,14 @@ public class Room {
 	private BlockMap map;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	private MapGrid grid;
+	public boolean exit;
 	
 	public Room(int gridX, int gridY, int id, BlockMap map) throws SlickException {
 		this.gridX = gridX;
 		this.gridY = gridY;
 		this.id = id;
 		this.map = map;
+		this.exit = false;
 		
 		for (Block b : map.blocks) {
 			entities.add(b);

@@ -36,7 +36,12 @@ public class Door extends Entity {
 	@Override
 	public void collisionResponse(Entity other) {
 		if (other.isType(Entity.PLAYER)) {
-			Player player = (Player) other;
+			Player player = null;
+			try {
+			 player = (Player) other;
+			} catch(ClassCastException e) {
+				return;
+			}
 			if (direction.equals("north")) {
 				player.setPosition(new Vector2f(400, 400));
 				grid.selectTile(new Vector2f(grid.getSelectedRoom().gridX, grid.getSelectedRoom().gridY - 1));

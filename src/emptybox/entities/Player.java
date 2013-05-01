@@ -7,6 +7,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import emptybox.map.MapGrid;
+
 import it.marteEngine.entity.Entity;
 
 public class Player extends Entity {
@@ -15,14 +17,20 @@ public class Player extends Entity {
 	private Image sprite;
 	private String UP, DOWN, LEFT, RIGHT, SHOOT_UP, SHOOT_DOWN, SHOOT_LEFT,
 			SHOOT_RIGHT;
+	private int health, range, damage, attackTimer;
+	private MapGrid grid;
 
-	public Player(float x, float y) throws SlickException {
+	public Player(float x, float y, int range, int health, int damage,
+			MapGrid grid) throws SlickException {
 		super(x, y);
-
+		this.health = health;
+		this.range = range;
+		this.damage = damage;
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		sprite = sheet.getSprite(0, 29);
 		setGraphic(sprite.getScaledCopy(4.0f));
 		setHitBox(0, 0, 32, 32);
+		this.grid = grid;
 
 		UP = "up";
 		DOWN = "down";
@@ -42,6 +50,7 @@ public class Player extends Entity {
 		define(SHOOT_LEFT, Input.KEY_LEFT);
 		define(SHOOT_RIGHT, Input.KEY_RIGHT);
 		addType(PLAYER);
+		attackTimer = 0;
 	}
 
 	public void render(GameContainer container, Graphics g)
@@ -52,6 +61,8 @@ public class Player extends Entity {
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		
+		attackTimer += 1;
 		super.update(container, delta);
 		if (check(UP)) {
 
@@ -91,7 +102,27 @@ public class Player extends Entity {
 			setGraphic(sprite.getScaledCopy(4.0f));
 
 		}
+		
+		if (collide("enemy", x, y) != null) {
+			
+		}
 
+			if (pressed(SHOOT_UP) && attackTimer >= 30) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "north", 350, 10));	
+				attackTimer = 0;
+			}
+			else if (pressed(SHOOT_DOWN) && attackTimer >= 30) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "south", 350, 10));	
+				attackTimer = 0;
+			}
+			else if (pressed(SHOOT_RIGHT) && attackTimer >= 30) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "east", 350, 10));	
+				attackTimer = 0;
+			}
+			else if (pressed(SHOOT_LEFT) && attackTimer >= 30) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "west", 350, 10));	
+				attackTimer = 0;
+			}
+			
 	}
-
 }

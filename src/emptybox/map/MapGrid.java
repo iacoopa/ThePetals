@@ -20,14 +20,15 @@ public class MapGrid {
 	public Rectangle viewport;
 	private Vector2f selectedCoords;
 	public int tileSize = 32;
-	private SpriteSheet sheet;;
-	private Image currentSprite, otherSprite;
+	private SpriteSheet sheet;
+	private Image currentSprite, otherSprite, exitSprite;
 	
 	public MapGrid(int width, int height, Rectangle viewport, Vector2f start) throws SlickException {
 		
 		sheet = new SpriteSheet("res/images/hifi_map.png", 32, 32);
 		currentSprite = sheet.getSprite(4, 2);
 		otherSprite = sheet.getSprite(5, 2);
+		exitSprite = sheet.getSprite(8, 1);
 		this.width = width;
 		this.height = height;
 		this.viewport = viewport;
@@ -70,9 +71,18 @@ public class MapGrid {
 		g.translate(viewport.getCenterX() - (selectedCoords.x * 32), viewport.getCenterY() - (selectedCoords.y * 32));
 		
 		for (Room r : grid.values()) {
-			g.drawImage(otherSprite, r.gridX * 32, r.gridY * 32);
+			if (r.exit) {
+				g.drawImage(exitSprite, r.gridX * 32, r.gridY * 32);
+			} else {
+				g.drawImage(otherSprite, r.gridX * 32, r.gridY * 32);
+			}
 		}
-		g.drawImage(currentSprite, selectedCoords.x * 32, selectedCoords.y * 32);
+		
+		if (getSelectedRoom().exit) {
+			g.drawImage(exitSprite, selectedCoords.x * 32, selectedCoords.y * 32);
+		} else {
+			g.drawImage(currentSprite, selectedCoords.x * 32, selectedCoords.y * 32);
+		}
 		
 		g.translate(( - (viewport.getCenterX()) - (selectedCoords.x * 32)) , - ((viewport.getCenterY()) - (selectedCoords.y * 32)));
 		//g.translate(-(3 * tileSize), -(-(17 * tileSize)));    

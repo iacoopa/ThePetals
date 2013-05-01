@@ -68,9 +68,16 @@ public class Generator {
 		}
 		grid.selectTile(new Vector2f(startingRoom.gridX, startingRoom.gridY));
 				
+		int exit = (int) (Math.random() * grid.grid.values().size());
+		
 		for (Room r : grid.grid.values()) {
 			r.addGrid(grid);
+			
+			if (r.id == exit) {
+				r.exit = true;
+			}
 		}
+		
 		
 		world.setGrid(grid);
 		return world;
