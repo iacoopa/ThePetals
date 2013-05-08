@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.blockmap.BlockMap;
 import emptybox.map.MapGrid;
@@ -15,13 +16,15 @@ public class Generator {
 	private MapGrid grid;
 	private Room startingRoom, lastRoom;
 	private GameContainer container;
+	private StateBasedGame game;
 
-	public Generator(GameContainer container) {
+	public Generator(GameContainer container, StateBasedGame game) {
 		this.container = container;
+		this.game = game;
 	}
 
-	public GameWorld generate() throws SlickException {
-		world = new GameWorld(0, container);
+	public GameWorld generate(int id) throws SlickException {
+		world = new GameWorld(id, container, game, this);
 		startingRoom = new Room(38 / 2, 38 / 2, 0, new BlockMap(
 				"/res/images/map.tmx", 0, 192));
 		grid = new MapGrid(38, 38, new Rectangle(

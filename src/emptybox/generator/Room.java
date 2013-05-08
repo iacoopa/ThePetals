@@ -18,8 +18,9 @@ public class Room {
 	public boolean visisted, hasDoorNorth, hasDoorSouth, hasDoorEast, hasDoorWest;
 	private BlockMap map;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
+	public ArrayList<Entity> enemies = new ArrayList<Entity>();
 	private MapGrid grid;
-	public boolean exit;
+	public boolean exit, unlocked;
 	
 	public Room(int gridX, int gridY, int id, BlockMap map) throws SlickException {
 		this.gridX = gridX;
@@ -27,6 +28,7 @@ public class Room {
 		this.id = id;
 		this.map = map;
 		this.exit = false;
+		this.unlocked = false;
 		
 		for (Block b : map.blocks) {
 			entities.add(b);

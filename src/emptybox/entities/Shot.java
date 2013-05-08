@@ -7,6 +7,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
+import emptybox.map.MapGrid;
+
 import it.marteEngine.entity.Entity;
 
 public class Shot extends Entity {
@@ -17,8 +19,9 @@ public class Shot extends Entity {
 	private Image sprite;
 	private int x1, y1;
 	public String type = "shot";
+	private MapGrid grid;
 
-	public Shot(float x, float y, String direction, int range, int damage) throws SlickException {
+	public Shot(float x, float y, String direction, int range, int damage, MapGrid grid) throws SlickException {
 		super(x, y);
 		this.x1 = (int) x;
 		this.y1 = (int) y;
@@ -39,6 +42,8 @@ public class Shot extends Entity {
 			sprite = sheet.getSprite(2, 13).getScaledCopy(4.0f);
 		}
 		setGraphic(sprite);
+		
+		this.grid = grid;
 	}
 	
 	@Override
@@ -51,6 +56,7 @@ public class Shot extends Entity {
 				destroy();
 				if (y <= y1 - range) {
 					destroy();
+					grid.getSelectedRoom().entities.remove(this);
 				}
 					
 			}
@@ -61,6 +67,7 @@ public class Shot extends Entity {
 				destroy();
 				if (y <= y1 + range) {
 					destroy();
+					grid.getSelectedRoom().entities.remove(this);
 				}
 					
 			}
@@ -71,6 +78,7 @@ public class Shot extends Entity {
 				destroy();
 				if (y <= x1 + range) {
 					destroy();
+					grid.getSelectedRoom().entities.remove(this);
 				}
 					
 			}
@@ -81,11 +89,20 @@ public class Shot extends Entity {
 				destroy();
 				if (y <= x1 - range) {
 					destroy();
+					grid.getSelectedRoom().entities.remove(this);
 				}
 					
 			}
 		}
+		
+		if (collide("enemy", x, y) != null) {
+			destroy();
+			grid.getSelectedRoom().entities.remove(this);
+		}
+		
 	}
+	
+	
 	
 	@Override 
 	public void render(GameContainer container, Graphics g) throws SlickException {

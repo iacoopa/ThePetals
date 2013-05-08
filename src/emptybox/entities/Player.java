@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.map.MapGrid;
 
@@ -17,12 +18,15 @@ public class Player extends Entity {
 	private Image sprite;
 	private String UP, DOWN, LEFT, RIGHT, SHOOT_UP, SHOOT_DOWN, SHOOT_LEFT,
 			SHOOT_RIGHT;
-	private int health, range, damage, attackTimer;
-	private MapGrid grid;
+	private int health, range, damage, attackTimer, hitTimer;
+	public MapGrid grid;
+	private StateBasedGame state;
+	public boolean dead;
 
 	public Player(float x, float y, int range, int health, int damage,
-			MapGrid grid) throws SlickException {
+			MapGrid grid, StateBasedGame state) throws SlickException {
 		super(x, y);
+		this.state = state;
 		this.health = health;
 		this.range = range;
 		this.damage = damage;
@@ -63,6 +67,7 @@ public class Player extends Entity {
 			throws SlickException {
 		
 		attackTimer += 1;
+		hitTimer ++;
 		super.update(container, delta);
 		if (check(UP)) {
 
@@ -103,24 +108,33 @@ public class Player extends Entity {
 
 		}
 		
-		if (collide("enemy", x, y) != null) {
-			
+		System.out.println(health);
+		
+		if (hitTimer >= 60) {
+			if (collide("enemy", x, y) != null) {
+				health --;
+				hitTimer = 0;
+			}
+		}
+		
+		if (health <= 0) {
+			dead = true;
 		}
 
 			if (pressed(SHOOT_UP) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "north", 350, 10));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "north", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (pressed(SHOOT_DOWN) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "south", 350, 10));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "south", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (pressed(SHOOT_RIGHT) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "east", 350, 10));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "east", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (pressed(SHOOT_LEFT) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "west", 350, 10));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y, "west", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			

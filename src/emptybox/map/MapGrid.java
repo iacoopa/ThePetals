@@ -1,7 +1,5 @@
 package emptybox.map;
 
-import it.marteEngine.entity.Entity;
-
 import java.util.HashMap;
 
 import org.newdawn.slick.Graphics;
@@ -22,9 +20,10 @@ public class MapGrid {
 	public int tileSize = 32;
 	private SpriteSheet sheet;
 	private Image currentSprite, otherSprite, exitSprite;
-	
-	public MapGrid(int width, int height, Rectangle viewport, Vector2f start) throws SlickException {
-		
+
+	public MapGrid(int width, int height, Rectangle viewport, Vector2f start)
+			throws SlickException {
+
 		sheet = new SpriteSheet("res/images/hifi_map.png", 32, 32);
 		currentSprite = sheet.getSprite(4, 2);
 		otherSprite = sheet.getSprite(5, 2);
@@ -35,7 +34,7 @@ public class MapGrid {
 		this.selectedCoords = start;
 		selectTile(new Vector2f(19, 19));
 	}
-	
+
 	public boolean roomExists(Vector2f coords) {
 		if (grid.keySet().contains(coords)) {
 			return true;
@@ -43,11 +42,11 @@ public class MapGrid {
 			return false;
 		}
 	}
-	
+
 	public int distance() {
-		return (getSelectedRoom().gridX - 19) * 64; 
+		return (getSelectedRoom().gridX - 19) * 64;
 	}
-	
+
 	public void addDoors() throws SlickException {
 		for (Room r : grid.values()) {
 			if (grid.keySet().contains(new Vector2f(r.gridX, r.gridY - 1))) {
@@ -65,11 +64,11 @@ public class MapGrid {
 			r.updateDoors();
 		}
 	}
-	
+
 	public void render(Graphics g) {
-		//g.translate(3 * tileSize, -(17 * tileSize));
-		g.translate(viewport.getCenterX() - (selectedCoords.x * 32), viewport.getCenterY() - (selectedCoords.y * 32));
-		
+		g.translate(viewport.getCenterX() - (selectedCoords.x * 32),
+				viewport.getCenterY() - (selectedCoords.y * 32));
+
 		for (Room r : grid.values()) {
 			if (r.exit) {
 				g.drawImage(exitSprite, r.gridX * 32, r.gridY * 32);
@@ -77,24 +76,25 @@ public class MapGrid {
 				g.drawImage(otherSprite, r.gridX * 32, r.gridY * 32);
 			}
 		}
-		
-		if (getSelectedRoom().exit) {
-			g.drawImage(exitSprite, selectedCoords.x * 32, selectedCoords.y * 32);
-		} else {
-			g.drawImage(currentSprite, selectedCoords.x * 32, selectedCoords.y * 32);
-		}
-		
-		g.translate(( - (viewport.getCenterX()) - (selectedCoords.x * 32)) , - ((viewport.getCenterY()) - (selectedCoords.y * 32)));
-		//g.translate(-(3 * tileSize), -(-(17 * tileSize)));    
 
+		if (getSelectedRoom().exit) {
+			g.drawImage(exitSprite, selectedCoords.x * 32,
+					selectedCoords.y * 32);
+		} else {
+			g.drawImage(currentSprite, selectedCoords.x * 32,
+					selectedCoords.y * 32);
+		}
+
+		g.translate((-(viewport.getCenterX()) - (selectedCoords.x * 32)),
+				-((viewport.getCenterY()) - (selectedCoords.y * 32)));
 	}
-	
+
 	public void selectTile(Vector2f coords) {
 		if (grid.get(coords) != null) {
 			selectedCoords = coords;
 		}
 	}
-	
+
 	public Room getSelectedRoom() {
 		return grid.get(selectedCoords);
 	}

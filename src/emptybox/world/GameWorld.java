@@ -16,6 +16,8 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.entities.Player;
+import emptybox.entities.monsters.Bat;
+import emptybox.generator.Generator;
 import emptybox.generator.Room;
 import emptybox.map.MapGrid;
 import emptybox.ui.UserInterface;
@@ -27,18 +29,27 @@ public class GameWorld extends World {
 	private UserInterface ui;
 	private Player player;
 	private AngelCodeFont font;
+	private StateBasedGame game;
+	private Generator generator;
 
-	public GameWorld(int id, GameContainer container) throws SlickException {
+	public GameWorld(int id, GameContainer container, StateBasedGame game, Generator generator) throws SlickException {
 		super(id, container);
 		ui = new UserInterface();
 		addDoors();		
 		font = new AngelCodeFont("res/font.fnt", "res/font_0.png");
+		this.game = game;
+		this.generator = generator;
 	}
 
 	public void setGrid(MapGrid grid) throws SlickException {
 		this.grid = grid;
 		grid.addDoors();
-		player = new Player(400, 400, 350, 10, 10, grid);
+		player = new Player(400, 400, 350, 10, 10, grid, game);
+		
+		for (Room r : grid.grid.values()) {
+			r.entities.add(player);
+		}
+		addEnemies();
 	}
 
 	@Override
@@ -57,13 +68,14 @@ public class GameWorld extends World {
 		grid.getSelectedRoom().render(g);
 		super.render(container, game, g);
 		g.translate(-1216 + grid.distance(), 0);
-		System.out.println(container.getFPS());
 	}
 	
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		super.update(container, game, delta);
 						
+		System.out.println(grid.getSelectedRoom().entities.contains(player));
+		
 		for (Entity e : grid.getSelectedRoom().entities) {
 			if (!getEntities().contains(e)) {
 				add(e, World.GAME);
@@ -76,10 +88,25 @@ public class GameWorld extends World {
 			}
 		}
 		
-		if (!grid.getSelectedRoom().entities.contains((Entity) player)) {
-			grid.getSelectedRoom().entities.add(player);
+		for (int i = 0; i <= grid.getSelectedRoom().entities.size(); i++) {
+			
+			if (grid.getSelectedRoom().entities.get(i).isType("enemy")) {
+				break;
+			}
+			if (i == grid.getSelectedRoom().entities.size()) {
+				grid.getSelectedRoom().unlocked = true;
+			}
+				
 		}
-
+		
+		if (grid.getSelectedRoom().enemies.isEmpty()) {
+			grid.getSelectedRoom().unlocked = true;
+		}
+		
+		if (player.dead) {
+			game.addState(generator.generate(1));
+			game.enterState(1);
+		}
 		
 	}
 
@@ -100,4 +127,27 @@ public class GameWorld extends World {
 
 		}
 	}
-}
+	
+	public void addEnemies() throws SlickException {
+		
+		
+		for (Room r : grid.grid.values()) {
+			int rand = (int) (Math.random() * 1);
+			switch (rand) {
+				case 0:
+					Bat bat = new Bat(64, 213, player, 5);
+					r.entities.add(bat);
+					r.enemies.add(bat);
+					Bat bat1 = new Bat(736, 213, player, 5);
+					r.entities.add(bat1);
+					r.enemies.add(bat1);
+					Bat bat2 = new Bat(64, 536, player, 5);
+					r.entities.add(bat2);
+					r.enemies.add(bat2);
+					Bat bat3 = new Bat(736, 536, player, 5);
+					r.entities.add(bat3);
+					r.enemies.add(bat3);
+			}
+		}
+	}
+ }

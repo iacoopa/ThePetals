@@ -17,8 +17,8 @@ public class Main extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		generator = new Generator(container);
-		addState(generator.generate());
+		generator = new Generator(container, this);
+		addState(generator.generate(0));
 	}
 	
 	public static void main(String[] argv) {
