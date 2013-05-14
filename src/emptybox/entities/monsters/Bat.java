@@ -14,8 +14,9 @@ import it.marteEngine.entity.Entity;
 public class Bat extends Entity {
 	
 	private Player player;
-	private float speed = 0.02f;
+	private float speed = 2.0f;
 	public int health;
+	private Vector2f trans = new Vector2f(0,0);
 
 	public Bat(float x, float y, Player player, int health) throws SlickException {
 		super(x, y);
@@ -35,15 +36,32 @@ public class Bat extends Entity {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		super.update(container, delta);
-	
-	//	System.out.println(health);
 		
-		if (collide("enemy", x += getSlope().x * speed, y) != null) {
-			x -= getSlope().x * speed;
+		if (getSlope().x > 0) {
+			trans.x = 1;
+		}
+		if (getSlope().x < 0) {
+			trans.x = -1;
+		}
+		if (getSlope().y > 0) {
+			trans.y = 1;
+		}
+		if (getSlope().y < 0) {
+			trans.y = -1;
+		}
+		if (getSlope().x == 0) {
+			trans.x = 0;
+		}
+		if (getSlope().y == 0) {
+			trans.y = 0;
+		}
+			
+		if (collide("enemy", x += trans.x * speed, y) != null) {
+			x -= trans.x * speed;
 		}
 		
-		if (collide("enemy", x, y += getSlope().y * speed) != null) {
-			y -= getSlope().y * speed;
+		if (collide("enemy", x, y += trans.y * speed) != null) {
+			y -= trans.y * speed;
 		}
 		
 		if (health == 0) {

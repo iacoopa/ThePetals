@@ -7,12 +7,16 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 
 import emptybox.entities.Block;
+import emptybox.entities.Player;
+import emptybox.entities.Spawner;
 
 public class BlockMap {
 	
 	TiledMap map;
 	public float mapWidth, mapHeight, x, y;
 	public ArrayList<Block> blocks = new ArrayList<Block>();
+	public ArrayList<Spawner> spawners = new ArrayList<Spawner>();
+	private Player player;
 
 	public BlockMap(String ref, float x, float y) throws SlickException {
 		map = new TiledMap(ref);
@@ -36,6 +40,10 @@ public class BlockMap {
 				}
 			}
 		}
+	}
+	
+	public void setPlayer(Player p) {
+		player = p;
 	}
 	
 	public void render(Graphics g) {
