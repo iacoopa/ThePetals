@@ -13,7 +13,7 @@ import it.marteEngine.entity.Entity;
 public class Slime extends Entity {
 
 	private Player player;
-	private float speed = 2.0f;
+	private float speed = 1.3f;
 	public int health, maxHealth;
 	private Vector2f trans = new Vector2f(0, 0);
 	private int rand;
@@ -116,6 +116,7 @@ public class Slime extends Entity {
 		}
 		
 		if (health == 0) {
+			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
 			player.grid.getSelectedRoom().enemies.remove(this);

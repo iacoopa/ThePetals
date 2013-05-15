@@ -151,7 +151,7 @@ public class GameWorld extends World {
 						r.enemies.add(bat3);
 						break;
 					case 1:
-						Slime s1 = new Slime(290, 400, player, 8);
+						Slime s1 = new Slime(280, 400, player, 8);
 						Slime s2 = new Slime(500, 400, player, 8);
 						Bat b1 = new Bat(400, 400, player, 5);
 						r.entities.add(b1);

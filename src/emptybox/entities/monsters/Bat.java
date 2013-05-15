@@ -14,7 +14,7 @@ import it.marteEngine.entity.Entity;
 public class Bat extends Entity {
 	
 	private Player player;
-	private float speed = 2.0f;
+	private float speed = 1.5f;
 	public int health;
 	private Vector2f trans = new Vector2f(0,0);
 
@@ -65,6 +65,7 @@ public class Bat extends Entity {
 		}
 		
 		if (health == 0) {
+			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
 			player.grid.getSelectedRoom().enemies.remove(this);
