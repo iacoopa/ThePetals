@@ -1,5 +1,6 @@
 package emptybox.entities;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,15 +21,19 @@ public class Shot extends Entity {
 	private int x1, y1;
 	public String type = "shot";
 	private MapGrid grid;
+	private Animation deathAnim;
+	private boolean dead;
 
 	public Shot(float x, float y, String direction, int range, int damage, MapGrid grid) throws SlickException {
 		super(x, y);
+		dead = false;
 		this.x1 = (int) x;
 		this.y1 = (int) y;
 		this.damage = damage;
 		this.range = range;
 		this.direction = direction;
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
+		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
 		setHitBox(0, 10, 32, 12);
 		addType("shot");
 		
@@ -96,6 +101,7 @@ public class Shot extends Entity {
 		}
 		
 		if (collide("enemy", x, y) != null) {
+			dead = true;
 			destroy();
 			grid.getSelectedRoom().entities.remove(this);
 		}
@@ -107,5 +113,10 @@ public class Shot extends Entity {
 	@Override 
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		super.render(container, g);
+		
+		if (dead) {
+			deathAnim.draw(x, y);
+			deathAnim.start();
+		}
 	}
 }

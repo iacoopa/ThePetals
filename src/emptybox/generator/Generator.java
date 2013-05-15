@@ -46,8 +46,7 @@ public class Generator {
 			switch (direction) {
 			case 0:
 				room = new Room(lastRoom.gridX, lastRoom.gridY - 1, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // north" +
-								
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // north" +	
 				break;
 			case 1:
 				room = new Room(lastRoom.gridX, lastRoom.gridY + 1, i,
@@ -83,8 +82,6 @@ public class Generator {
 				r.exit = true;
 			}
 		}
-		
-		
 		world.setGrid(grid);
 		return world;
 	}

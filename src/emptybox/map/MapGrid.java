@@ -19,7 +19,7 @@ public class MapGrid {
 	private Vector2f selectedCoords;
 	public int tileSize = 32;
 	private SpriteSheet sheet;
-	private Image currentSprite, otherSprite, exitSprite;
+	private Image currentSprite, otherSprite, exitSprite, visitedSprite;
 
 	public MapGrid(int width, int height, Rectangle viewport, Vector2f start)
 			throws SlickException {
@@ -28,6 +28,7 @@ public class MapGrid {
 		currentSprite = sheet.getSprite(4, 2);
 		otherSprite = sheet.getSprite(5, 2);
 		exitSprite = sheet.getSprite(8, 1);
+		visitedSprite = sheet.getSprite(4, 1);
 		this.width = width;
 		this.height = height;
 		this.viewport = viewport;
@@ -72,6 +73,8 @@ public class MapGrid {
 		for (Room r : grid.values()) {
 			if (r.exit) {
 				g.drawImage(exitSprite, r.gridX * 32, r.gridY * 32);
+			} else if (r.visited) {
+				g.drawImage(visitedSprite, r.gridX * 32, r.gridY * 32);
 			} else {
 				g.drawImage(otherSprite, r.gridX * 32, r.gridY * 32);
 			}
@@ -92,6 +95,7 @@ public class MapGrid {
 	public void selectTile(Vector2f coords) {
 		if (grid.get(coords) != null) {
 			selectedCoords = coords;
+			grid.get(coords).visited = true;
 		}
 	}
 

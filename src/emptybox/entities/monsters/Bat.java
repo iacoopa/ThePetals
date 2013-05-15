@@ -1,5 +1,7 @@
 package emptybox.entities.monsters;
 
+import java.math.BigInteger;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,9 +16,10 @@ import it.marteEngine.entity.Entity;
 public class Bat extends Entity {
 	
 	private Player player;
-	private float speed = 1.5f;
-	public int health;
+	private float speed = 0.03f;
+	public int health, gcdTimer;
 	private Vector2f trans = new Vector2f(0,0);
+	private int gcd;
 
 	public Bat(float x, float y, Player player, int health) throws SlickException {
 		super(x, y);
@@ -26,36 +29,34 @@ public class Bat extends Entity {
 		setGraphic(spritesheet.getSprite(14, 12).getScaledCopy(4.0f));
 		setHitBox(0, 0, 32, 32);
 		this.health = health;
+		gcdTimer = 30;
 	}
 
+	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		super.render(container, g);
 	}
 
+	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		super.update(container, delta);
+		gcdTimer ++;
+		if (gcdTimer >= 15) {
+			if (Math.abs(getSlope().x) > Math.abs(getSlope().y)) {
+				gcd = gcdThing((int) getSlope().x, (int) getSlope().y);
+			} else {
+				gcd = gcdThing((int) getSlope().y, (int) getSlope().x);
+			}
+			gcdTimer = 0;
+		}
 		
-		if (getSlope().x > 0) {
-			trans.x = 1;
-		}
-		if (getSlope().x < 0) {
-			trans.x = -1;
-		}
-		if (getSlope().y > 0) {
-			trans.y = 1;
-		}
-		if (getSlope().y < 0) {
-			trans.y = -1;
-		}
-		if (getSlope().x == 0) {
-			trans.x = 0;
-		}
-		if (getSlope().y == 0) {
-			trans.y = 0;
-		}
-			
+		System.out.println(gcd);
+		
+		trans.x = (getSlope().x / gcd);
+		trans.y = (getSlope().y / gcd);
+		
 		if (collide("enemy", x += trans.x * speed, y) != null) {
 			x -= trans.x * speed;
 		}
@@ -87,8 +88,11 @@ public class Bat extends Entity {
 		return new Vector2f((player.x - x), (player.y - y));
 	}
 	
-	public double getDistance() {
-		return Math.sqrt(Math.pow(player.x - x, 2) + Math.pow(player.y - y, 2)) * 0.01;
+	private static int gcdThing(int a, int b) {
+	    BigInteger b1 = new BigInteger(""+ Math.abs(a)); // there's a better way to do this. I forget.
+	    BigInteger b2 = new BigInteger(""+ Math.abs(b));
+	    BigInteger gcd = b1.gcd(b2);
+	    return gcd.intValue();
 	}
 
 }
