@@ -27,6 +27,7 @@ public class Generator {
 		world = new GameWorld(id, container, game, this);
 		startingRoom = new Room(38 / 2, 38 / 2, 0, new BlockMap(
 				"/res/images/map.tmx", 0, 192));
+		startingRoom.start = true;
 		grid = new MapGrid(38, 38, new Rectangle(
 				(startingRoom.gridX * 32) - 100,
 				((startingRoom.gridY * 32) - 100), 200, 200), new Vector2f(

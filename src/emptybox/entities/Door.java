@@ -47,23 +47,23 @@ public class Door extends Entity {
 					return;
 				}
 				if (direction.equals("north")) {
-					player.setPosition(new Vector2f(400, 400));
+					player.setPosition(new Vector2f(384, 511));
 					grid.selectTile(new Vector2f(grid.getSelectedRoom().gridX,
 							grid.getSelectedRoom().gridY - 1));
 				}
 				if (direction.equals("south")) {
-					player.setPosition(new Vector2f(400, 400));
+					player.setPosition(new Vector2f(384, 257));
 					grid.selectTile(new Vector2f(grid.getSelectedRoom().gridX,
 							grid.getSelectedRoom().gridY + 1));
 				}
 				if (direction.equals("east")) {
-					player.setPosition(new Vector2f(400, 400));
+					player.setPosition(new Vector2f(65, 416));
 					grid.selectTile(new Vector2f(
 							grid.getSelectedRoom().gridX + 1, grid
 									.getSelectedRoom().gridY));
 				}
 				if (direction.equals("west")) {
-					player.setPosition(new Vector2f(400, 400));
+					player.setPosition(new Vector2f(707, 416));
 					grid.selectTile(new Vector2f(
 							grid.getSelectedRoom().gridX - 1, grid
 									.getSelectedRoom().gridY));

@@ -18,7 +18,7 @@ public class Player extends Entity {
 	private Image sprite;
 	private String UP, DOWN, LEFT, RIGHT, SHOOT_UP, SHOOT_DOWN, SHOOT_LEFT,
 			SHOOT_RIGHT;
-	private int health, range, damage, attackTimer, hitTimer;
+	public int health, range, damage, attackTimer, hitTimer, level;
 	public MapGrid grid;
 	private StateBasedGame state;
 	public boolean dead;
@@ -31,10 +31,11 @@ public class Player extends Entity {
 		this.range = range;
 		this.damage = damage;
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
-		sprite = sheet.getSprite(0, 29);
-		setGraphic(sprite.getScaledCopy(4.0f));
+		sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
+		setGraphic(sprite);
 		setHitBox(0, 0, 32, 32);
 		this.grid = grid;
+		level = 1;
 
 		UP = "up";
 		DOWN = "down";
@@ -76,8 +77,8 @@ public class Player extends Entity {
 				y += 0.3f * delta;
 			}
 
-			this.sprite = sheet.getSprite(3, 29);
-			setGraphic(sprite.getScaledCopy(4.0f));
+			this.sprite = sheet.getSprite(3, 29).getScaledCopy(4.0f);
+			setGraphic(sprite);
 		}
 		if (check(LEFT)) {
 			if (collide(SOLID, x -= 0.3f * delta, y) != null) {
@@ -85,8 +86,8 @@ public class Player extends Entity {
 			//	direction = "west";
 			}
 
-			this.sprite = sheet.getSprite(2, 29);
-			setGraphic(sprite.getScaledCopy(4.0f));
+			this.sprite = sheet.getSprite(2, 29).getScaledCopy(4.0f);
+			setGraphic(sprite);
 
 		}
 		if (check(DOWN)) {
@@ -94,8 +95,8 @@ public class Player extends Entity {
 				this.y -= 0.3 * delta;
 				//direction = "south";
 			}
-			this.sprite = sheet.getSprite(1, 29);
-			setGraphic(sprite.getScaledCopy(4.0f));
+			this.sprite = sheet.getSprite(1, 29).getScaledCopy(4.0f);
+			setGraphic(sprite);
 
 		}
 		if (check(RIGHT)) {
@@ -103,37 +104,38 @@ public class Player extends Entity {
 				this.x -= 0.3 * delta;
 				//direction = "east";
 			}
-			this.sprite = sheet.getSprite(0, 29);
-			setGraphic(sprite.getScaledCopy(4.0f));
+			this.sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
+			setGraphic(sprite);
 
 		}
-		
-		System.out.println(health);
-		
+				
 		if (hitTimer >= 60) {
+			sprite.setImageColor(255, 255, 255, 1.0f);
 			if (collide("enemy", x, y) != null) {
 				health --;
 				hitTimer = 0;
 			}
+		} else {
+			sprite.setImageColor(175, 0, 0, 0.5f);
 		}
 		
 		if (health <= 0) {
 			dead = true;
 		}
 
-			if (pressed(SHOOT_UP) && attackTimer >= 30) {
+			if (check(SHOOT_UP) && attackTimer >= 30) {
 				grid.getSelectedRoom().entities.add(new Shot(x, y, "north", 350, 10, grid));	
 				attackTimer = 0;
 			}
-			else if (pressed(SHOOT_DOWN) && attackTimer >= 30) {
+			else if (check(SHOOT_DOWN) && attackTimer >= 30) {
 				grid.getSelectedRoom().entities.add(new Shot(x, y, "south", 350, 10, grid));	
 				attackTimer = 0;
 			}
-			else if (pressed(SHOOT_RIGHT) && attackTimer >= 30) {
+			else if (check(SHOOT_RIGHT) && attackTimer >= 30) {
 				grid.getSelectedRoom().entities.add(new Shot(x, y, "east", 350, 10, grid));	
 				attackTimer = 0;
 			}
-			else if (pressed(SHOOT_LEFT) && attackTimer >= 30) {
+			else if (check(SHOOT_LEFT) && attackTimer >= 30) {
 				grid.getSelectedRoom().entities.add(new Shot(x, y, "west", 350, 10, grid));	
 				attackTimer = 0;
 			}
