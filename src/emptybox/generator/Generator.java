@@ -39,29 +39,31 @@ public class Generator {
 
 		for (int i = 1; i <= (100 + Math.random() * 200); i++) {
 			int direction = (int) (Math.random() * (4));
-
+			int map =  (int) (Math.random() * 2);
+			
 			Room room = null;
 
 			switch (direction) {
 			case 0:
 				room = new Room(lastRoom.gridX, lastRoom.gridY - 1, i,
-						new BlockMap("/res/images/map.tmx", 0, 192)); // north
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // north" +
+								
 				break;
 			case 1:
 				room = new Room(lastRoom.gridX, lastRoom.gridY + 1, i,
-						new BlockMap("/res/images/map.tmx", 0, 192)); // south
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // south
 				break;
 			case 2:
 				room = new Room(lastRoom.gridX + 1, lastRoom.gridY, i,
-						new BlockMap("/res/images/map.tmx", 0, 192)); // east
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // east
 				break;
 			case 3:
 				room = new Room(lastRoom.gridX - 1, lastRoom.gridY, i,
-						new BlockMap("/res/images/map.tmx", 0, 192)); // west
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // west
 				break;
 			default:
 				room = new Room(lastRoom.gridX, lastRoom.gridY - 1, i,
-						new BlockMap("/res/images/map.tmx", 0, 192)); // default
+						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // default
 																	  // (north)
 				break;
 			}

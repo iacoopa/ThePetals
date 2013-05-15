@@ -30,10 +30,11 @@ public class Player extends Entity {
 		this.health = health;
 		this.range = range;
 		this.damage = damage;
+		this.hitTimer = 60;
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
 		setGraphic(sprite);
-		setHitBox(0, 0, 32, 32);
+		setHitBox(0, 10, 32, 22);
 		this.grid = grid;
 		level = 1;
 
@@ -124,19 +125,19 @@ public class Player extends Entity {
 		}
 
 			if (check(SHOOT_UP) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "north", 350, 10, grid));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (check(SHOOT_DOWN) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "south", 350, 10, grid));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "south", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (check(SHOOT_RIGHT) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "east", 350, 10, grid));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "east", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			else if (check(SHOOT_LEFT) && attackTimer >= 30) {
-				grid.getSelectedRoom().entities.add(new Shot(x, y, "west", 350, 10, grid));	
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "west", 350, 10, grid));	
 				attackTimer = 0;
 			}
 			

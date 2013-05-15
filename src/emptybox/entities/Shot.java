@@ -29,7 +29,7 @@ public class Shot extends Entity {
 		this.range = range;
 		this.direction = direction;
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
-		setHitBox(0, 0, 32, 32);
+		setHitBox(0, 10, 32, 12);
 		addType("shot");
 		
 		if (direction.equals("north")) {
