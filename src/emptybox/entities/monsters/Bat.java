@@ -16,7 +16,7 @@ import it.marteEngine.entity.Entity;
 public class Bat extends Entity {
 	
 	private Player player;
-	private float speed = 0.03f;
+	private float speed = 2.0f;
 	public int health, gcdTimer;
 	private Vector2f trans = new Vector2f(0,0);
 	private int gcd;
@@ -42,28 +42,8 @@ public class Bat extends Entity {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		super.update(container, delta);
-		gcdTimer ++;
-		if (gcdTimer >= 15) {
-			if (Math.abs(getSlope().x) > Math.abs(getSlope().y)) {
-				gcd = gcdThing((int) getSlope().x, (int) getSlope().y);
-			} else {
-				gcd = gcdThing((int) getSlope().y, (int) getSlope().x);
-			}
-			gcdTimer = 0;
-		}
 		
-		System.out.println(gcd);
-		
-		trans.x = (getSlope().x / gcd);
-		trans.y = (getSlope().y / gcd);
-		
-		if (collide("enemy", x += trans.x * speed, y) != null) {
-			x -= trans.x * speed;
-		}
-		
-		if (collide("enemy", x, y += trans.y * speed) != null) {
-			y -= trans.y * speed;
-		}
+		follow();
 		
 		if (health == 0) {
 			player.level ++;
@@ -94,5 +74,16 @@ public class Bat extends Entity {
 	    BigInteger gcd = b1.gcd(b2);
 	    return gcd.intValue();
 	}
-
+	
+	private void follow() {
+		trans.x = player.x - x;
+		trans.y = player.y - y;
+		
+		if (collide("enemy", x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
+			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
+		}
+		if (collide("enemy", x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
+			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
+		}
+	}
 }

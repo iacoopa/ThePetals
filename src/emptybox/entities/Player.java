@@ -34,7 +34,7 @@ public class Player extends Entity {
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
 		setGraphic(sprite);
-		setHitBox(0, 10, 32, 22);
+		setHitBox(0, 15, 32, 17);
 		this.grid = grid;
 		level = 1;
 

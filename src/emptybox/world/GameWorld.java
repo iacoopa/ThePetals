@@ -18,6 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import emptybox.entities.Player;
 import emptybox.entities.monsters.Bat;
 import emptybox.entities.monsters.Slime;
+import emptybox.entities.monsters.Wyvern;
 import emptybox.generator.Generator;
 import emptybox.generator.Room;
 import emptybox.map.MapGrid;
@@ -45,7 +46,7 @@ public class GameWorld extends World {
 	public void setGrid(MapGrid grid) throws SlickException {
 		this.grid = grid;
 		grid.addDoors();
-		player = new Player(384, 512, 350, 10, 10, grid, game);
+		player = new Player(384, 512, 350, 1000, 10, grid, game);
 		
 		for (Room r : grid.grid.values()) {
 			r.entities.add(player);
@@ -134,7 +135,7 @@ public class GameWorld extends World {
 		
 		for (Room r : grid.grid.values()) {
 			if (r.start != true) {
-				int rand = (int) (Math.random() * 2);
+				int rand = (int) (Math.random() * 3);
 				switch (rand) {
 					case 0:
 						Bat bat = new Bat(64, 213, player, 5); // top left
@@ -160,6 +161,11 @@ public class GameWorld extends World {
 						r.enemies.add(s1);
 						r.entities.add(s2);
 						r.enemies.add(s2);
+						break;
+					case 2:
+						/*Wyvern w1 = new Wyvern (400, 500, player, 15);
+						r.entities.add(w1);
+						r.enemies.add(w1);*/
 				}
 			}
 		}

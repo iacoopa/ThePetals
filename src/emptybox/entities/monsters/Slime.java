@@ -13,11 +13,11 @@ import it.marteEngine.entity.Entity;
 public class Slime extends Entity {
 
 	private Player player;
-	private float speed = 1.3f;
+	private float speed = 0.8f;
 	public int health, maxHealth;
 	private Vector2f trans = new Vector2f(0, 0);
-	private int rand;
-	private int movementTimer = 50;
+	private double rand;
+	private int movementTimer = 60;
 
 	public Slime(float x, float y, Player player, int health)
 			throws SlickException {
@@ -39,80 +39,15 @@ public class Slime extends Entity {
 
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		
+		movementTimer++;
 		if (health == maxHealth) {
-			rand = (int) (Math.random() * 9);
 			if (movementTimer >= 60) {
-				trans.x = 0;
-				trans.y = 0;
-				switch (rand) {
-				case 0:
-					trans.x = 1;
-					break;
-				case 1:
-					trans.y = 1;
-					break;
-				case 2:
-					trans.x = -1;
-					break;
-				case 3:
-					trans.y = -1;
-					break;
-				case 4:
-					trans.x = 1;
-					trans.y = 1;
-					break;
-				case 5:
-					trans.x = -1;
-					trans.y = -1;
-					break;
-				case 7:
-					trans.x = 1;
-					trans.y = -1;
-					break;
-				case 8:
-					trans.x = -1;
-					trans.y = 1;
-				}
+				rand = Math.random() * 361;
 				movementTimer = 0;
 			}
-	
-			movementTimer++;
-		
-		} else {
-			if (getSlope().x > 0) {
-				trans.x = 1;
-			}
-			if (getSlope().x < 0) {
-				trans.x = -1;
-			}
-			if (getSlope().y > 0) {
-				trans.y = 1;
-			}
-			if (getSlope().y < 0) {
-				trans.y = -1;
-			}
-			if (getSlope().x == 0) {
-				trans.x = 0;
-			}
-			if (getSlope().y == 0) {
-				trans.y = 0;
-			}
-		}
-
-		if (collide(SOLID, x += trans.x * speed, y) != null) {
-			x -= trans.x * speed;
-		}
-		if (collide(SOLID, x, y += trans.y * speed) != null) {
-			y -= trans.y * speed;
-		}
-		
-		if (collide("enemy", x, y) != null) {
-			x -= trans.x * speed;
-		}
-		
-		if (collide("enemy", x, y) != null) {
-			y -= trans.y * speed;
+			randomFollow(rand);
+		} else if (health != maxHealth){
+			follow();
 		}
 		
 		if (health == 0) {
@@ -136,5 +71,42 @@ public class Slime extends Entity {
 	
 	public Vector2f getSlope() {
 		return new Vector2f((player.x - x), (player.y - y));
+	}
+	
+	private void follow() {
+		trans.x = player.x - x;
+		trans.y = player.y - y;
+		
+		speed = 1.8f;
+		
+		if (collide("enemy", x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
+			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
+		}
+		if (collide("enemy", x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
+			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
+		}
+		if (collide(SOLID, x, y) != null) {
+			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
+		}
+		if (collide(SOLID, x, y) != null) {
+			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
+		}
+	}
+	
+	private void randomFollow(double rand) {
+		
+		if (collide(SOLID, x += speed * Math.cos(Math.toRadians(rand)), y) != null) {
+			x -= speed * Math.cos(Math.toRadians(rand)); 
+		}
+		if (collide(SOLID, x, y += speed * Math.sin(Math.toRadians(rand))) != null) {
+			y -= speed * Math.sin(Math.toRadians(rand));
+		}
+		if (collide("enemy", x, y) != null) {
+			x -= speed * Math.cos(Math.toRadians(rand)); 
+		}
+		if (collide("enemy", x, y) != null) {
+			y -= speed * Math.sin(Math.toRadians(rand));
+		}
+          
 	}
 }
