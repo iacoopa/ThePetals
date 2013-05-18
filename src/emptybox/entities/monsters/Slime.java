@@ -27,7 +27,7 @@ public class Slime extends Entity {
 		SpriteSheet spritesheet = new SpriteSheet("res/images/lofi_char.png",
 				8, 8);
 		setGraphic(spritesheet.getSprite(2, 11).getScaledCopy(4.0f));
-		setHitBox(0, 0, 32, 32);
+		setHitBox(0, 10, 32, 22);
 		this.health = health;
 		this.maxHealth = health;
 	}
@@ -79,17 +79,17 @@ public class Slime extends Entity {
 		
 		speed = 1.8f;
 		
-		if (collide("enemy", x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
+		if (collide("enemy", x, y) != null) {
 			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
 		}
-		if (collide("enemy", x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
+		if (collide("enemy", x, y) != null) {
 			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
 		}
-		if (collide(SOLID, x, y) != null) {
+		if (collide(SOLID, x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
 			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
 		}
-		if (collide(SOLID, x, y) != null) {
-			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
+		if (collide(SOLID, x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
+			y -= speed * Math.sin(Math.toRadians(trans.getTheta()));
 		}
 	}
 	

@@ -16,7 +16,6 @@ public class BlockMap {
 	public float mapWidth, mapHeight, x, y;
 	public ArrayList<Block> blocks = new ArrayList<Block>();
 	public ArrayList<Spawner> spawners = new ArrayList<Spawner>();
-	private Player player;
 
 	public BlockMap(String ref, float x, float y) throws SlickException {
 		map = new TiledMap(ref);
@@ -35,15 +34,31 @@ public class BlockMap {
 					} if (map.getTileImage(i, j, map.getLayerIndex("Objects")) != null) {
 						blocks.add(new Block(i * map.getTileWidth(), (j * map.getTileHeight()) + 181, map.getTileImage(i, j, map.getLayerIndex("Objects"))));
 					}
-				} else {
+				} 
+				
+				else {
 					continue;
 				}
 			}
 		}
 	}
 	
-	public void setPlayer(Player p) {
-		player = p;
+	public void addSpawners(Player player) throws SlickException {
+		for (int i = 0; i < map.getWidth(); i++) {
+			for (int j = 0; j < map.getHeight(); j++) {
+				System.out.println(map.getTileId(i, j, map.getLayerIndex("spawner")));
+				if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 499){
+					spawners.add(new Spawner(i * 32, (j * 32) + 181, "wyvern", player));
+					System.out.println("added");
+				} if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 436) {
+					spawners.add(new Spawner(i * 32, (j * 32) + 181, "slime", player));
+					System.out.println("added");
+				} if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 464) {
+					spawners.add(new Spawner(i * 32, (j * 32) + 181, "bat", player));
+					System.out.println("added");
+				}
+			}
+		}
 	}
 	
 	public void render(Graphics g) {

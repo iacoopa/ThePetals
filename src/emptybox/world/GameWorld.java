@@ -131,6 +131,13 @@ public class GameWorld extends World {
 	}
 	
 	public void addEnemies() throws SlickException {
+		for (Room r : rooms) {
+			r.map.addSpawners(player);
+			r.addEnemies();
+		}
+	}
+	
+	/*public void addEnemies() throws SlickException {
 		
 		
 		for (Room r : grid.grid.values()) {
@@ -163,11 +170,11 @@ public class GameWorld extends World {
 						r.enemies.add(s2);
 						break;
 					case 2:
-						/*Wyvern w1 = new Wyvern (400, 500, player, 15);
+						Wyvern w1 = new Wyvern (400, 500, player, 15);
 						r.entities.add(w1);
-						r.enemies.add(w1);*/
+						r.enemies.add(w1);
 				}
 			}
 		}
-	}
+	}*/
  }

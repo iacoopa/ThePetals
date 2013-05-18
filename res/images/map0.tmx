@@ -11,9 +11,32 @@
  <tileset firstgid="2" name="hifi_map" tilewidth="32" tileheight="32">
   <image source="hifi_map.png" width="512" height="512"/>
  </tileset>
+ <tileset firstgid="258" name="hifi_char" tilewidth="32" tileheight="32">
+  <image source="hifi_char.png" width="512" height="992"/>
+  <tile id="178">
+   <properties>
+    <property name="monster" value="slime"/>
+   </properties>
+  </tile>
+  <tile id="206">
+   <properties>
+    <property name="monster" value="bat"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="collision" width="25" height="13">
   <data encoding="base64" compression="zlib">
    eJxjZGBgYKQDzqQhHkg7SPUjPvX4xDNJtAOXelL9Qao4ofjAZg4p/MHgj4GMD2qmK2pietpBawwAnmNW/g==
+  </data>
+ </layer>
+ <layer name="spawner" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBjeYAsjaeovkKh+FIyCoQxITe+k5qehCADICQMN
+  </data>
+ </layer>
+ <layer name="floor" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzLZGBgyBzFo3gUj+JRDMYAmQ2FTg==
   </data>
  </layer>
  <layer name="Walls" width="25" height="13">

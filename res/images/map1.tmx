@@ -11,9 +11,27 @@
  <tileset firstgid="2" name="hifi_map" tilewidth="32" tileheight="32">
   <image source="hifi_map.png" width="512" height="512"/>
  </tileset>
+ <tileset firstgid="258" name="hifi_char" tilewidth="32" tileheight="32">
+  <image source="hifi_char.png" width="512" height="992"/>
+  <tile id="241">
+   <properties>
+    <property name="monster" value="wyvern"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="collision" width="25" height="13">
   <data encoding="base64" compression="zlib">
    eJxjZGBgYBxEGBmQoz+TBnig7SDGr+SoobU/GGhkB8MA20Gt+GDAIzeU0y498jktMQDnG0RC
+  </data>
+ </layer>
+ <layer name="spawner" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D+4DMjddSMglFAbQAA3F4B6Q==
+  </data>
+ </layer>
+ <layer name="floor" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBgyETCtADIZlNqDyG3ZtII08sOWpk93OwYxYMPMwwCN1ADAwACdnE1
   </data>
  </layer>
  <layer name="Walls" width="25" height="13">

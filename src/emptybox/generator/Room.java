@@ -10,13 +10,15 @@ import org.newdawn.slick.SlickException;
 import emptybox.blockmap.BlockMap;
 import emptybox.entities.Block;
 import emptybox.entities.Door;
+import emptybox.entities.Player;
+import emptybox.entities.Spawner;
 import emptybox.map.MapGrid;
 
 public class Room {
 
 	public int gridX, gridY, id;
 	public boolean visisted, hasDoorNorth, hasDoorSouth, hasDoorEast, hasDoorWest;
-	private BlockMap map;
+	public BlockMap map;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Entity> enemies = new ArrayList<Entity>();
 	private MapGrid grid;
@@ -29,15 +31,22 @@ public class Room {
 		this.map = map;
 		this.exit = false;
 		this.unlocked = false;
-		this.start = false;
+		this.start = false;		
 		
 		for (Block b : map.blocks) {
 			entities.add(b);
-		}
+		}	
 	}
 	
 	public void addGrid(MapGrid grid) {
 		this.grid = grid;
+	}
+	
+	public void addEnemies() {
+		for (Spawner s : map.spawners) {
+			entities.add(s.monster);
+			enemies.add(s.monster);
+		}
 	}
 	
 	public void render(Graphics g) {
