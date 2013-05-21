@@ -1,5 +1,7 @@
 package emptybox.entities.monsters;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -8,7 +10,10 @@ import org.newdawn.slick.geom.Vector2f;
 
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
+import emptybox.entities.items.RedPotion;
 import it.marteEngine.entity.Entity;
+
+import emptybox.entities.items.*;
 
 public class Slime extends Entity {
 
@@ -18,6 +23,7 @@ public class Slime extends Entity {
 	private Vector2f trans = new Vector2f(0, 0);
 	private double rand;
 	private int movementTimer = 60;
+	private ArrayList<Item> dropList = new ArrayList<Item>();
 
 	public Slime(float x, float y, Player player, int health)
 			throws SlickException {
@@ -30,6 +36,9 @@ public class Slime extends Entity {
 		setHitBox(0, 10, 32, 22);
 		this.health = health;
 		this.maxHealth = health;
+		
+		dropList.add(new RedPotion(x, y));
+		
 	}
 
 	public void render(GameContainer container, Graphics g)
@@ -51,6 +60,15 @@ public class Slime extends Entity {
 		}
 		
 		if (health == 0) {
+			
+			double rand = Math.random() * dropList.size();
+			
+			Item dropItem = dropList.get((int) rand);
+			
+			dropItem.setPosition(new Vector2f(x, y));
+			
+			player.grid.getSelectedRoom().entities.add(dropItem);
+			
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);

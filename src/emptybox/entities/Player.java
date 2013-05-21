@@ -140,6 +140,5 @@ public class Player extends Entity {
 				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "west", 350, 10, grid));	
 				attackTimer = 0;
 			}
-			
 	}
 }

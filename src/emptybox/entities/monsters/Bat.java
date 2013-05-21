@@ -42,7 +42,6 @@ public class Bat extends Entity {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		super.update(container, delta);
-		
 		follow();
 		
 		if (health == 0) {

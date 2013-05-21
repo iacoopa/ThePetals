@@ -42,7 +42,7 @@ public class EnemyShot extends Entity {
 		this.grid = grid;
 	
 		trans = new Vector2f(dest.x - start.x, dest.y - start.y);
-		sprite.rotate((float) trans.getTheta());
+		setAngle((int) trans.getTheta());
 		setGraphic(sprite);
 	}
 	

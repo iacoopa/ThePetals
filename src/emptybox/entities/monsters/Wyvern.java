@@ -46,7 +46,12 @@ public class Wyvern extends Entity {
 			throws SlickException {
 		super.render(container, g);
 		
-		g.draw(vision);
+		if (player.x <= x) {
+			setAngle(360);
+		} if (player.x >= x) {
+			setAngle(0);
+		}
+
 	}
 
 	@Override
@@ -83,6 +88,7 @@ public class Wyvern extends Entity {
 			player.grid.getSelectedRoom().entities.remove(this);
 			player.grid.getSelectedRoom().enemies.remove(this);
 		}
+		
 
 	}
 
