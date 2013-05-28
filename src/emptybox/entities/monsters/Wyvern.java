@@ -12,6 +12,9 @@ import emptybox.entities.Player;
 import emptybox.entities.Shot;
 import emptybox.entities.items.Item;
 import emptybox.entities.items.RedPotion;
+import emptybox.entities.items.WyvernHorn;
+import emptybox.entities.items.equipment.IronHelmet;
+import emptybox.entities.items.equipment.IronSword;
 
 import it.marteEngine.entity.Entity;
 
@@ -43,7 +46,10 @@ public class Wyvern extends Monster {
 		rand = Math.random() * 361;
 		
 		dropList.add(new RedPotion(x, y, player));
-
+		dropList.add(new WyvernHorn(x, y, player));
+		dropList.add(new IronHelmet(x, y, player));
+		dropList.add(new IronSword(x, y, player));
+		
 	}
 
 	@Override
@@ -87,15 +93,18 @@ public class Wyvern extends Monster {
 			
 		}
 		
-		if (health == 0) {
-			double rand = Math.random() * dropList.size();
+		if (health <= 0) {
 			
-			Item dropItem = dropList.get((int) rand);
+			double rand = (Math.random() * dropList.size() * 2);
+			System.out.println((int) rand % 2 + " " + (int) rand/2);
 			
-			dropItem.setPosition(new Vector2f(x, y));
-			
-			player.grid.getSelectedRoom().entities.add(dropItem);
-			
+			if ((int)rand % 2 == 0) {
+				Item dropItem = dropList.get((int) rand/2);
+				
+				dropItem.setPosition(new Vector2f(x, y));
+				
+				player.grid.getSelectedRoom().entities.add(dropItem);
+			} 
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
@@ -109,7 +118,7 @@ public class Wyvern extends Monster {
 	public void collisionResponse(Entity other) {
 		try {
 			Shot shot = (Shot) other;
-			health -= 1;
+			health -= shot.damage;
 			player.grid.getSelectedRoom().entities.remove(other);
 		} catch(ClassCastException e) {
 			return;

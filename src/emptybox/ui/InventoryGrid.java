@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -21,8 +23,15 @@ public class InventoryGrid {
 	private Map<Point, Image> slots = new HashMap<Point, Image>();
 	private Input input = null;
 	public Point selectedPoint;
+	private AngelCodeFont font;
+	private float x, y;
 	
 	public InventoryGrid() throws SlickException {
+		
+		font = new AngelCodeFont("res/font.fnt", "res/font_0.png");
+		x = 0;
+		y = 0;
+		
 		for (int i = 0; i < 5; i ++) {
 			for (int j = 0; j < 5; j ++) {
 				Image image = new Image("res/images/lofi_item_slot.png");
@@ -54,6 +63,15 @@ public class InventoryGrid {
 				if (items[i][j] != null) {
 					items[i][j].draw(new Point(i, j), g);
 				}
+			}
+		}
+		
+		if (selectedPoint != null) {
+			if (items[(int) selectedPoint.x][(int) selectedPoint.y] != null) {
+				g.setColor(new Color(102, 102, 102, 127));
+				g.fillRect(x, y, 150, 150);
+				font.drawString(x + 30, y + 5, items[(int) selectedPoint.x][(int) selectedPoint.y].name);
+				font.drawString(x + 5, y + 25, items[(int) selectedPoint.x][(int) selectedPoint.y].description);
 			}
 		}
 	}
@@ -96,6 +114,9 @@ public class InventoryGrid {
 			if (selectedPoint != null) {
 				System.out.println(selectedPoint.x + " " + selectedPoint.y);
 			}
+			
+			x = input.getMouseX();
+			y = input.getMouseY();
 			
 			if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
 				if (items[(int) selectedPoint.x][(int) selectedPoint.y] != null) {

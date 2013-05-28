@@ -52,6 +52,11 @@ public class EnemyShot extends Entity {
 		super.update(container, delta);
 		x += speed * Math.cos(Math.toRadians(trans.getTheta()));
 		y += speed * Math.sin(Math.toRadians(trans.getTheta()));
+		
+		if (collide(SOLID, x, y) != null) {
+			destroy();
+			grid.getSelectedRoom().entities.remove(this);
+		}
 	}
 	
 	

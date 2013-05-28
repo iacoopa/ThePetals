@@ -1,7 +1,5 @@
 package emptybox.entities.monsters;
 
-import java.util.ArrayList;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,6 +12,7 @@ import emptybox.entities.items.RedPotion;
 import it.marteEngine.entity.Entity;
 
 import emptybox.entities.items.*;
+import emptybox.entities.items.equipment.WoodenBow;
 
 public class Slime extends Monster {
 
@@ -35,7 +34,8 @@ public class Slime extends Monster {
 		this.maxHealth = health;
 		
 		dropList.add(new RedPotion(x, y, player));
-		
+		dropList.add(new SlimeJelly(x, y, player));
+		dropList.add(new WoodenBow(x, y, player));
 	}
 
 	public void render(GameContainer container, Graphics g)
@@ -56,16 +56,18 @@ public class Slime extends Monster {
 			follow();
 		}
 		
-		if (health == 0) {
+		if (health <= 0) {
 			
-			double rand = Math.random() * dropList.size();
+			double rand = (Math.random() * dropList.size() * 2);
+			System.out.println((int) rand % 2 + " " + (int) rand/2);
 			
-			Item dropItem = dropList.get((int) rand);
-			
-			dropItem.setPosition(new Vector2f(x, y));
-			
-			player.grid.getSelectedRoom().entities.add(dropItem);
-			
+			if ((int)rand % 2 == 0) {
+				Item dropItem = dropList.get((int) rand/2);
+				
+				dropItem.setPosition(new Vector2f(x, y));
+				
+				player.grid.getSelectedRoom().entities.add(dropItem);
+			} 
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
@@ -77,7 +79,7 @@ public class Slime extends Monster {
 	public void collisionResponse(Entity other) {
 		try {
 			Shot shot = (Shot) other;
-			health -= 1;
+			health -= shot.damage;
 			player.grid.getSelectedRoom().entities.remove(other);
 		} catch(ClassCastException e) {
 			return;

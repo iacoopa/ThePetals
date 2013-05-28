@@ -14,7 +14,7 @@ import it.marteEngine.entity.Entity;
 
 public class Shot extends Entity {
 	
-	private int damage, range;
+	public int damage, range;
 	private String direction;
 	private SpriteSheet sheet;
 	private Image sprite;
@@ -45,6 +45,14 @@ public class Shot extends Entity {
 			sprite = sheet.getSprite(6, 13).getScaledCopy(4.0f);
 		} if (direction.equals("west")) {
 			sprite = sheet.getSprite(2, 13).getScaledCopy(4.0f);
+		} if (direction.equals("northeast")) {
+			sprite = sheet.getSprite(5, 13).getScaledCopy(4.0f);
+		} if (direction.equals("northwest")) {
+			sprite = sheet.getSprite(3, 13).getScaledCopy(4.0f);
+		} if (direction.equals("southeast")) {
+			sprite = sheet.getSprite(7, 13).getScaledCopy(4.0f);
+		} if (direction.equals("southwest")) {
+			sprite = sheet.getSprite(1, 13).getScaledCopy(4.0f);
 		}
 		setGraphic(sprite);
 		
@@ -72,7 +80,7 @@ public class Shot extends Entity {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);		
 			}
-			if (y <= y1 + range) {
+			if (y >= y1 + range) {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);
 			}
@@ -84,7 +92,7 @@ public class Shot extends Entity {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);		
 			}
-			if (y <= x1 + range) {
+			if (x >= x1 + range) {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);
 			}
@@ -95,7 +103,51 @@ public class Shot extends Entity {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);		
 			}
-			if (y <= x1 - range) {
+			if (x <= x1 - range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
+			}
+		}
+		
+		if (direction.equals("northeast")) {
+			if (collide(SOLID, x += 7, y -= 7) != null) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (y <= y1 - range && x >= x1 - range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
+			}
+		}
+		
+		if (direction.equals("northwest")) {
+			if (collide(SOLID, x -= 7, y -= 7) != null) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (x <= x1 - range && y <= y1 - range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
+			}
+		}
+		
+		if (direction.equals("southeast")) {
+			if (collide(SOLID, x += 7, y += 7) != null) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (x >= x1 - range && y > y1 + range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
+			}
+		}
+		
+		if (direction.equals("southwest")) {
+			if (collide(SOLID, x -= 7, y += 7) != null) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (x <= x1 - range && x >= y1 + range) {
 				destroy();
 				grid.getSelectedRoom().entities.remove(this);
 			}

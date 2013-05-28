@@ -46,7 +46,7 @@ public class GameWorld extends World {
 	public void setGrid(MapGrid grid) throws SlickException {
 		this.grid = grid;
 		grid.addDoors();
-		player = new Player(384, 512, 350, 1000, 10, grid, game);
+		player = new Player(384, 512, grid, game);
 		
 		for (Room r : grid.grid.values()) {
 			r.entities.add(player);
@@ -65,12 +65,15 @@ public class GameWorld extends World {
 		g.translate(1216 + grid.distance(), 0);
 		g.fillRect(0, 0, 608, 192);
 		g.fillRect(0, 192, 800, 480);
+		grid.getSelectedRoom().render(g);
+		super.render(container, game, g);
 		ui.renderoutside(g);
 		font.drawString(65, 135, "Find the Petals.");
 		font.drawString(15, 15, "Archer - Level: " + player.level);
-		font.drawString(15, 30, "Health: " + player.health + "");
-		grid.getSelectedRoom().render(g);
-		super.render(container, game, g);
+		font.drawString(15, 30, "Health: " + player.health + "/" + player.maxHealth);
+		font.drawString(15, 45, "Damage: " + player.damage + "");
+		font.drawString(15, 60, "Range: " + player.range + "");
+		
 		g.translate(-1216 + grid.distance(), 0);
 	}
 	

@@ -15,7 +15,7 @@ public class Inventory {
 	public boolean open = false;
 	private Image background;
 	private AngelCodeFont font;
-	private InventoryGrid grid = new InventoryGrid();
+	public InventoryGrid grid = new InventoryGrid();
 	
 	public Inventory() throws SlickException {
 		background = new Image("res/images/lofi_inventory.png");

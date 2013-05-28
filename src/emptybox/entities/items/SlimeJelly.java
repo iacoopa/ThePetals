@@ -7,26 +7,23 @@ import org.newdawn.slick.SpriteSheet;
 
 import emptybox.entities.Player;
 
-public class RedPotion extends Item {
-	
-	private Player p;
-	private int restoreAmount = 10;
-	
-	public RedPotion(float x, float y, Player p) throws SlickException {
-		super(x, y, p);
+public class SlimeJelly extends Item {
 
-		this.p = p;
+	private Player p;
+	
+	public SlimeJelly(float x, float y, Player p) throws SlickException {
+		super(x, y, p);
 		
-		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj.png", 8, 8);
-		
-		sprite = sheet.getSprite(12, 0).getScaledCopy(4.0f);
-		
-		setGraphic(sprite.getScaledCopy(0.75f));
+		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_char.png", 8, 8);
+	
+		sprite = sheet.getSprite(14, 11).getScaledCopy(4.0f);
 		
 		addType("item");
 		
-		this.name = "Red Potion";
-		this.description = "Restores " + restoreAmount + " HP. \nRight-click to use.";
+		setGraphic(sprite.getScaledCopy(0.75f));
+		
+		this.name = "Slime Jelly";
+		this.description = "The remains of a\nslime.\nExtremely gooey.\n\nRight-click to\ndestroy.";
 	}
 	
 	@Override
@@ -39,8 +36,7 @@ public class RedPotion extends Item {
 		
 		bob();
 	}
-	
+
 	public void use() {
-		p.health += restoreAmount;
 	}
  }

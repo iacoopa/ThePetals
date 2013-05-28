@@ -9,8 +9,10 @@ import org.newdawn.slick.geom.Vector2f;
 
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
+import emptybox.entities.items.BatWing;
 import emptybox.entities.items.Item;
 import emptybox.entities.items.RedPotion;
+import emptybox.entities.items.equipment.LeatherArmor;
 
 import it.marteEngine.entity.Entity;
 
@@ -29,7 +31,8 @@ public class Bat extends Monster {
 		this.health = health;
 		
 		dropList.add(new RedPotion(x, y, player));
-
+		dropList.add(new BatWing(x, y, player));
+		dropList.add(new LeatherArmor(x, y, player));
 	}
 
 	@Override
@@ -44,15 +47,18 @@ public class Bat extends Monster {
 		super.update(container, delta);
 		follow();
 		
-		if (health == 0) {
-			double rand = Math.random() * dropList.size();
+		if (health <= 0) {
 			
-			Item dropItem = dropList.get((int) rand);
+			double rand = (Math.random() * dropList.size() * 2);
+			System.out.println((int) rand % 2 + " " + (int) rand/2);
 			
-			dropItem.setPosition(new Vector2f(x, y));
-			
-			player.grid.getSelectedRoom().entities.add(dropItem);
-			
+			if ((int)rand % 2 == 0) {
+				Item dropItem = dropList.get((int) rand/2);
+				
+				dropItem.setPosition(new Vector2f(x, y));
+				
+				player.grid.getSelectedRoom().entities.add(dropItem);
+			} 
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
@@ -64,7 +70,7 @@ public class Bat extends Monster {
 	public void collisionResponse(Entity other) {
 		try {
 			Shot shot = (Shot) other;
-			health -= 1;
+			health -= shot.damage;
 			player.grid.getSelectedRoom().entities.remove(other);
 		} catch(ClassCastException e) {
 			return;
