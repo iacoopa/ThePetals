@@ -1,6 +1,5 @@
 package emptybox.entities.monsters;
 
-import java.math.BigInteger;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,26 +9,27 @@ import org.newdawn.slick.geom.Vector2f;
 
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
+import emptybox.entities.items.Item;
+import emptybox.entities.items.RedPotion;
 
 import it.marteEngine.entity.Entity;
 
-public class Bat extends Entity {
+public class Bat extends Monster {
 	
 	private Player player;
-	private float speed = 2.0f;
-	public int health, gcdTimer;
-	private Vector2f trans = new Vector2f(0,0);
-	private int gcd;
+	public int health;
 
 	public Bat(float x, float y, Player player, int health) throws SlickException {
-		super(x, y);
+		super(x, y, player);
 		this.player = player;
-		addType("enemy");
+		addType("bat");
 		SpriteSheet spritesheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		setGraphic(spritesheet.getSprite(14, 12).getScaledCopy(4.0f));
-		setHitBox(0, 0, 32, 32);
+		setHitBox(0, 15, 32, 17);
 		this.health = health;
-		gcdTimer = 30;
+		
+		dropList.add(new RedPotion(x, y, player));
+
 	}
 
 	@Override
@@ -45,6 +45,14 @@ public class Bat extends Entity {
 		follow();
 		
 		if (health == 0) {
+			double rand = Math.random() * dropList.size();
+			
+			Item dropItem = dropList.get((int) rand);
+			
+			dropItem.setPosition(new Vector2f(x, y));
+			
+			player.grid.getSelectedRoom().entities.add(dropItem);
+			
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
@@ -60,29 +68,6 @@ public class Bat extends Entity {
 			player.grid.getSelectedRoom().entities.remove(other);
 		} catch(ClassCastException e) {
 			return;
-		}
-	}
-	
-	public Vector2f getSlope() {
-		return new Vector2f((player.x - x), (player.y - y));
-	}
-	
-	private static int gcdThing(int a, int b) {
-	    BigInteger b1 = new BigInteger(""+ Math.abs(a)); // there's a better way to do this. I forget.
-	    BigInteger b2 = new BigInteger(""+ Math.abs(b));
-	    BigInteger gcd = b1.gcd(b2);
-	    return gcd.intValue();
-	}
-	
-	private void follow() {
-		trans.x = player.x - x;
-		trans.y = player.y - y;
-		
-		if (collide("enemy", x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
-			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
-		}
-		if (collide("enemy", x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
-			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
 		}
 	}
 }

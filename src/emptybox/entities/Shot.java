@@ -59,44 +59,45 @@ public class Shot extends Entity {
 		if (direction.equals("north")) {
 			if (collide(SOLID, x, y -= 7) != null) {
 				destroy();
-				if (y <= y1 - range) {
-					destroy();
-					grid.getSelectedRoom().entities.remove(this);
-				}
-					
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (y <= y1 - range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
 			}
 		}
 		
 		if (direction.equals("south")) {
 			if (collide(SOLID, x, y += 7) != null) {
 				destroy();
-				if (y <= y1 + range) {
-					destroy();
-					grid.getSelectedRoom().entities.remove(this);
-				}
-					
+				grid.getSelectedRoom().entities.remove(this);		
 			}
+			if (y <= y1 + range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
+			}
+				
 		}
 		
 		if (direction.equals("east")) {
 			if (collide(SOLID, x += 7, y) != null) {
 				destroy();
-				if (y <= x1 + range) {
-					destroy();
-					grid.getSelectedRoom().entities.remove(this);
-				}
-					
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (y <= x1 + range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
 			}
 		}
 		
 		if (direction.equals("west")) {
 			if (collide(SOLID, x -= 7, y) != null) {
 				destroy();
-				if (y <= x1 - range) {
-					destroy();
-					grid.getSelectedRoom().entities.remove(this);
-				}
-					
+				grid.getSelectedRoom().entities.remove(this);		
+			}
+			if (y <= x1 - range) {
+				destroy();
+				grid.getSelectedRoom().entities.remove(this);
 			}
 		}
 		

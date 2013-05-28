@@ -1,31 +1,39 @@
 package emptybox.entities.items;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
+
+import emptybox.Point;
+import emptybox.entities.Player;
 
 import it.marteEngine.entity.Entity;
 
 public class Item extends Entity{
 
-	private int yRange, bobTimer;
+	private int bobTimer;
 	
 	private boolean top, bottom, center;
+	protected Image sprite;
 	
-	public Item(float x, float y) {
+	public Item(float x, float y, Player p) {
 		super(x, y);
 		
 		bobTimer = 60;
-		yRange = 10;
 		
 		top = false;
 		bottom = false;
 		center = true;
+		
+		this.collidable = true;
+		
+		setHitBox(0,0, 32, 32);
 	}
 
 	public void Update(GameContainer container, int delta) throws SlickException {
 		super.update(container, delta);
-		
-	
 		
 	}
 	
@@ -51,5 +59,13 @@ public class Item extends Entity{
 		}
 		
 		bobTimer ++;
+	}
+	
+	public void draw(Point v, Graphics g) {
+		sprite.draw(304 + (v.x * 40), 304 + (v.y * 40));
+	}
+	
+	public void use() {
+		System.out.println("use");
 	}
 }

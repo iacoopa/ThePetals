@@ -46,16 +46,15 @@ public class BlockMap {
 	public void addSpawners(Player player) throws SlickException {
 		for (int i = 0; i < map.getWidth(); i++) {
 			for (int j = 0; j < map.getHeight(); j++) {
-				System.out.println(map.getTileId(i, j, map.getLayerIndex("spawner")));
 				if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 499){
 					spawners.add(new Spawner(i * 32, (j * 32) + 181, "wyvern", player));
-					System.out.println("added");
+					//System.out.println("added");
 				} if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 436) {
 					spawners.add(new Spawner(i * 32, (j * 32) + 181, "slime", player));
-					System.out.println("added");
+					//System.out.println("added");
 				} if (map.getTileId(i, j, map.getLayerIndex("spawner")) == 464) {
 					spawners.add(new Spawner(i * 32, (j * 32) + 181, "bat", player));
-					System.out.println("added");
+					//System.out.println("added");
 				}
 			}
 		}

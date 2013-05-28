@@ -31,11 +31,12 @@ public class EnemyShot extends Entity {
 		super(x, y);
 		dead = false;
 		
+		addType("enemyshot");
+		
 		this.range = range;
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
 		setHitBox(0, 10, 32, 12);
-		addType("enemy");
 		
 		sprite = sheet.getSprite(6, 13).getScaledCopy(4.0f);
 		

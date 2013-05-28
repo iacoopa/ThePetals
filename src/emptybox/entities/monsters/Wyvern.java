@@ -10,10 +10,12 @@ import org.newdawn.slick.geom.Vector2f;
 import emptybox.entities.EnemyShot;
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
+import emptybox.entities.items.Item;
+import emptybox.entities.items.RedPotion;
 
 import it.marteEngine.entity.Entity;
 
-public class Wyvern extends Entity {
+public class Wyvern extends Monster {
 
 	private Player player;
 	private float speed = 0.03f;
@@ -26,12 +28,12 @@ public class Wyvern extends Entity {
 
 	public Wyvern(float x, float y, Player player, int health)
 			throws SlickException {
-		super(x, y);
+		super(x, y, player);
 		this.player = player;
 		this.health = health;
 
-		addType("enemy");
-		setHitBox(0, 0, 64, 32);
+		addType("wyvern");
+		setHitBox(0, 15, 64, 17);
 
 		SpriteSheet spritesheet = new SpriteSheet("res/images/lofi_char.png",
 				16, 8);
@@ -39,6 +41,9 @@ public class Wyvern extends Entity {
 
 		this.vision = new Circle(x + 32, y + 16, 300);
 		rand = Math.random() * 361;
+		
+		dropList.add(new RedPotion(x, y, player));
+
 	}
 
 	@Override
@@ -83,29 +88,20 @@ public class Wyvern extends Entity {
 		}
 		
 		if (health == 0) {
+			double rand = Math.random() * dropList.size();
+			
+			Item dropItem = dropList.get((int) rand);
+			
+			dropItem.setPosition(new Vector2f(x, y));
+			
+			player.grid.getSelectedRoom().entities.add(dropItem);
+			
 			player.level ++;
 			destroy();
 			player.grid.getSelectedRoom().entities.remove(this);
 			player.grid.getSelectedRoom().enemies.remove(this);
 		}
 		
-
-	}
-
-	private void randomFollow(double rand) {
-
-		if (collide(SOLID, x += speed * Math.cos(Math.toRadians(rand)), y) != null) {
-			x -= speed * Math.cos(Math.toRadians(rand));
-		}
-		if (collide(SOLID, x, y += speed * Math.sin(Math.toRadians(rand))) != null) {
-			y -= speed * Math.sin(Math.toRadians(rand));
-		}
-		if (collide("enemy", x, y) != null) {
-			x -= speed * Math.cos(Math.toRadians(rand));
-		}
-		if (collide("enemy", x, y) != null) {
-			y -= speed * Math.sin(Math.toRadians(rand));
-		}
 
 	}
 	
@@ -118,31 +114,5 @@ public class Wyvern extends Entity {
 		} catch(ClassCastException e) {
 			return;
 		}
-	}
-
-	private void follow() {
-		trans.x = player.x - x;
-		trans.y = player.y - y;
-
-		speed = 1.8f;
-
-		if (collide("enemy", x, y) != null) {
-			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
-		}
-		if (collide("enemy", x, y) != null) {
-			y -= speed * Math.sin(Math.toRadians(trans.getTheta())); 
-		}
-		if (collide(SOLID, x += speed * Math.cos(Math.toRadians(trans.getTheta())), y) != null) {
-			x -= speed * Math.cos(Math.toRadians(trans.getTheta())); 
-		}
-		if (collide(SOLID, x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
-			y -= speed * Math.sin(Math.toRadians(trans.getTheta()));
-		}
-	}
-
-	private void shoot() throws SlickException {
-		player.grid.getSelectedRoom().entities.add(new EnemyShot(x + 32, y + 16,
-				new Vector2f(x, y), new Vector2f(player.x - 22, player.y + 16), 350,
-				player.grid));
 	}
 }

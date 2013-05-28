@@ -1,25 +1,44 @@
 package emptybox.ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 
-import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tests.xml.Item;
+import org.newdawn.slick.AngelCodeFont;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
+import emptybox.entities.items.Item;
 
 public class Inventory {
 
-	private ArrayList<Item> items = new ArrayList<Item>();
+	public boolean open = false;
+	private Image background;
+	private AngelCodeFont font;
+	private InventoryGrid grid = new InventoryGrid();
 	
-	public Inventory() {
+	public Inventory() throws SlickException {
+		background = new Image("res/images/lofi_inventory.png");
+		background.setFilter(Image.FILTER_NEAREST);
+		font = new AngelCodeFont("res/font.fnt", "res/font_0.png");
+	}
+	
+	public void addItem(Item item) {
+		grid.addItem(item);
+	}
+	
+	public Collection<Item> getItems() {
+		return grid.getItems();
+	}
+	
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		background.getScaledCopy(4.0f).draw(290, 275);
+		font.drawString(375, 280, "Items");
 		
+		grid.render(container, g);
 	}
 	
-	public void addItem(Item i) {
-		items.add(i);
+	public void update(GameContainer container, int delta) {
+		grid.update(container, delta, open);
 	}
-	
-	public ArrayList getItems() {
-		return items;
-	}
-	
 }
