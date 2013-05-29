@@ -7,7 +7,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-import emptybox.entities.EnemyShot;
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
 import emptybox.entities.items.Item;
@@ -21,9 +20,7 @@ import it.marteEngine.entity.Entity;
 public class Wyvern extends Monster {
 
 	private Player player;
-	private float speed = 0.03f;
 	public int health;
-	private Vector2f trans = new Vector2f(0, 0);
 	private Circle vision;
 	private double rand;
 	private int movementTimer = 90;

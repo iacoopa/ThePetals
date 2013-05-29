@@ -17,7 +17,6 @@ import emptybox.entities.items.equipment.WoodenBow;
 public class Slime extends Monster {
 
 	private Player player;
-	private float speed = 0.8f;
 	public int health, maxHealth;
 	private int movementTimer = 60;
 

@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
+import emptybox.Point;
 import emptybox.entities.EnemyShot;
 import emptybox.entities.Player;
 import emptybox.entities.items.Item;
@@ -57,6 +58,17 @@ public class Monster extends Entity {
 		}
 		if (collide(SOLID, x, y += speed * Math.sin(Math.toRadians(trans.getTheta()))) != null) {
 			y -= speed * Math.sin(Math.toRadians(trans.getTheta()));
+		}
+	}
+	
+	protected void randomAngle(Point trans, double rand) {
+		speed = 1.8f;
+		
+		if (collide(SOLID, x += speed * trans.x, y) != null) {
+			trans.x = (float) (-trans.x + ((Math.random() * 50) - 2.5));
+		}
+		if (collide(SOLID, x, y += speed * trans.y) != null) { 
+			trans.y = (float) (-trans.y + ((Math.random() * 5.0) - 2.5));
 		}
 	}
 	

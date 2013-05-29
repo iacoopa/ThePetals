@@ -10,7 +10,6 @@ import org.newdawn.slick.SlickException;
 import emptybox.blockmap.BlockMap;
 import emptybox.entities.Block;
 import emptybox.entities.Door;
-import emptybox.entities.Player;
 import emptybox.entities.Spawner;
 import emptybox.map.MapGrid;
 

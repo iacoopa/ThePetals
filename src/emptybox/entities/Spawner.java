@@ -16,6 +16,8 @@ public class Spawner{
 			monster = new Bat(x, y, p, 5);
 		} else if (type.equals("wyvern")) {
 			monster = new Wyvern(x, y, p, 15);
+		} else if (type.equals("redSkull")) {
+			monster = new CrazySkull(x, y, p);
 		}
 	}
 

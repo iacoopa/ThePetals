@@ -39,7 +39,7 @@ public class Generator {
 
 		for (int i = 1; i <= (100 + Math.random() * 200); i++) {
 			int direction = (int) (Math.random() * (4));
-			int map =  (int) (Math.random() * 2);
+			int map =  (int) (Math.random() * 3);
 			
 			Room room = null;
 

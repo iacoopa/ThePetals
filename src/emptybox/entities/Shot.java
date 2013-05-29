@@ -6,7 +6,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.map.MapGrid;
 
@@ -34,7 +33,7 @@ public class Shot extends Entity {
 		this.direction = direction;
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
-		setHitBox(0, 10, 32, 12);
+		setHitBox(16, 16, 12, 12);
 		addType("shot");
 		
 		if (direction.equals("north")) {

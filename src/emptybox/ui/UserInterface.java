@@ -3,12 +3,10 @@ package emptybox.ui;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 public class UserInterface {
 
 	private Image mapbackgroundinside, mapbackgroundoutside, infoBackground;
-	private SpriteSheet uiSheet;
 	
 	public UserInterface() {
 		try {
@@ -16,7 +14,6 @@ public class UserInterface {
 			this.mapbackgroundoutside = new Image("res/images/lofi_map_outside.png");
 			mapbackgroundinside.setFilter(Image.FILTER_NEAREST);
 			mapbackgroundoutside.setFilter(Image.FILTER_NEAREST);
-			this.uiSheet = new SpriteSheet("res/images/lofi_halls.png", 8, 8);
 			this.infoBackground = new Image("res/images/lofi_info.png");
 		} catch (SlickException e) {
 			e.printStackTrace();

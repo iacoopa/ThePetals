@@ -7,21 +7,21 @@ import org.newdawn.slick.SpriteSheet;
 
 import emptybox.entities.Player;
 
-public class BatWing extends Item {
+public class BlueFlame extends Item {
 	
-	public BatWing(float x, float y, Player p) throws SlickException {
+	public BlueFlame(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
 		
-		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj_packA.png", 8, 8);
+		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj.png", 8, 8);
 	
-		sprite = sheet.getSprite(0, 2).getScaledCopy(4.0f);
+		sprite = sheet.getSprite(10, 6).getScaledCopy(4.0f);
 		
 		addType("item");
 		
 		setGraphic(sprite.getScaledCopy(0.75f));
 		
-		this.name = "Bat Wing";
-		this.description = "The leathery wing \nof a bat.\n\nRight-click to\ndestroy.";
+		this.name = "Blue Flame";
+		this.description = "The scorching flame \nfrom a skull.\n\nRight-click to\ndestroy.";
 	}
 	
 	@Override

@@ -7,7 +7,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.map.MapGrid;
 
@@ -15,16 +14,13 @@ import it.marteEngine.entity.Entity;
 
 public class EnemyShot extends Entity {
 	
-	private int damage, range;
-	private String direction;
 	private SpriteSheet sheet;
 	private Image sprite;
-	private int x1, y1;
 	public String type = "shot";
 	private MapGrid grid;
 	private Animation deathAnim;
 	private boolean dead;
-	private Vector2f start, dest, trans;
+	private Vector2f trans;
 	private float speed = 1.8f;
 
 	public EnemyShot(float x, float y, Vector2f start, Vector2f dest, int range, MapGrid grid) throws SlickException {
@@ -33,7 +29,6 @@ public class EnemyShot extends Entity {
 		
 		addType("enemyshot");
 		
-		this.range = range;
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
 		setHitBox(0, 10, 32, 12);

@@ -177,7 +177,7 @@ public class Player extends Entity {
 			dead = true;
 		}
 
-		if (check(SHOOT_UP) && attackTimer >= 5) {
+		if (check(SHOOT_UP) && attackTimer >= 30) {
 			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north",
 					range, damage, grid));
 			attackTimer = 0;

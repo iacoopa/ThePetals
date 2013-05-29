@@ -11,14 +11,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheetFont;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.entities.Player;
-import emptybox.entities.monsters.Bat;
-import emptybox.entities.monsters.Slime;
-import emptybox.entities.monsters.Wyvern;
 import emptybox.generator.Generator;
 import emptybox.generator.Room;
 import emptybox.map.MapGrid;
