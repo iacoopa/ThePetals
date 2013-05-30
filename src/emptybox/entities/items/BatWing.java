@@ -8,6 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 import emptybox.entities.Player;
 
 public class BatWing extends Item {
+	private Player p;
 	
 	public BatWing(float x, float y, Player p) throws SlickException {
 		super(x, y, p);

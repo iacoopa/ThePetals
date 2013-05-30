@@ -8,6 +8,8 @@ import org.newdawn.slick.SpriteSheet;
 import emptybox.entities.Player;
 
 public class SlimeJelly extends Item {
+
+	private Player p;
 	
 	public SlimeJelly(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
