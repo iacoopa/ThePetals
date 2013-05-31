@@ -55,13 +55,13 @@ public class Room {
 	public void updateDoors() throws SlickException {
 
 		if (hasDoorNorth) {
-			entities.add(new Door(384, 224, "north", grid));
+			entities.add(new Door(384, 192, "north", grid));
 		} if (hasDoorSouth) {
-			entities.add(new Door(384, 546, "south", grid));
+			entities.add(new Door(384, 570, "south", grid));
 		} if (hasDoorEast) {
-			entities.add(new Door(740, 416, "east", grid));
+			entities.add(new Door(760, 416, "east", grid));
 		} if (hasDoorWest) {
-			entities.add(new Door(32, 416, "west", grid));
+			entities.add(new Door(12, 416, "west", grid));
 		}
 	}
 }

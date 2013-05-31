@@ -22,11 +22,26 @@ public class Door extends Entity {
 			throws SlickException {
 		super(x, y);
 		sheet = new SpriteSheet("res/images/lofi_environment.png", 8, 8);
-		image = sheet.getSprite(0, 13).getScaledCopy(4.0f);
 		this.direction = direction;
+		if (direction.equals("north")) {
+			image = sheet.getSprite(4, 13).getScaledCopy(4.0f);
+			setHitBox(0, 0, 32, 32);
+		} else if (direction.equals("south")) {
+			image = sheet.getSprite(5, 14).getScaledCopy(4.0f);
+			setHitBox(0, 8, 32, 16);
+		} else if (direction.equals("east")) {
+			image = sheet.getSprite(4, 14).getScaledCopy(4.0f);
+			setHitBox(8, 0, 16, 32);
+		} else if (direction.equals("west")) {
+			image = sheet.getSprite(4, 14).getScaledCopy(4.0f);
+			setHitBox(8, 0, 16, 32);
+		} else {
+			image = sheet.getSprite(4, 13).getScaledCopy(4.0f);
+			setHitBox(0, 0, 32, 32);
+		}
 		setGraphic(image);
 		addType(SOLID);
-		setHitBox(0, 0, 32, 32);
+
 		this.grid = grid;
 	}
 

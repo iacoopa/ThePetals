@@ -13,7 +13,7 @@
  </tileset>
  <layer name="collision" width="25" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYKQDzqQhHrVj1I5RO0aOHbTGABW3aA4=
+   eJxjZGBgYCQBM5CoHoYzaYhH7RiZdjDQ2A6GYRRWw8kOWpdXAAxPaAo=
   </data>
  </layer>
  <layer name="Walls" width="25" height="13">
