@@ -20,8 +20,10 @@ public class Room {
 	public BlockMap map;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Entity> enemies = new ArrayList<Entity>();
+	public ArrayList<Entity> doors = new ArrayList<Entity>();
 	private MapGrid grid;
 	public boolean exit, unlocked, start, visited;
+	public boolean hasChest;
 	
 	public Room(int gridX, int gridY, int id, BlockMap map) throws SlickException {
 		this.gridX = gridX;
@@ -35,6 +37,11 @@ public class Room {
 		for (Block b : map.blocks) {
 			entities.add(b);
 		}	
+		if ((int) Math.random() * 2 == 1) {
+			hasChest = true;
+		} else {
+			hasChest = false;
+		}
 	}
 	
 	public void addGrid(MapGrid grid) {
@@ -56,12 +63,16 @@ public class Room {
 
 		if (hasDoorNorth) {
 			entities.add(new Door(384, 192, "north", grid));
+			doors.add(new Door(384, 192, "north", grid));
 		} if (hasDoorSouth) {
-			entities.add(new Door(384, 570, "south", grid));
+			entities.add(new Door(384, 567, "south", grid));
+			doors.add(new Door(384, 567, "south", grid));
 		} if (hasDoorEast) {
 			entities.add(new Door(760, 416, "east", grid));
+			doors.add(new Door(760, 416, "east", grid));
 		} if (hasDoorWest) {
 			entities.add(new Door(12, 416, "west", grid));
+			doors.add(new Door(12, 416, "west", grid));
 		}
 	}
 }

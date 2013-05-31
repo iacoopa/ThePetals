@@ -14,6 +14,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import emptybox.entities.Door;
 import emptybox.entities.Player;
 import emptybox.generator.Generator;
 import emptybox.generator.Room;
@@ -102,6 +103,10 @@ public class GameWorld extends World {
 		
 		if (grid.getSelectedRoom().enemies.isEmpty()) {
 			grid.getSelectedRoom().unlocked = true;
+			for (Entity e : grid.getSelectedRoom().doors) {
+				Door d = (Door) e;
+				d.unlocked = true;
+			}
 		}
 		
 		if (player.dead) {

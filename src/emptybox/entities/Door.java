@@ -17,6 +17,7 @@ public class Door extends Entity {
 	private Image image;
 	public String direction;
 	private MapGrid grid;
+	public boolean unlocked;
 
 	public Door(float x, float y, String direction, MapGrid grid)
 			throws SlickException {
@@ -48,6 +49,11 @@ public class Door extends Entity {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		super.render(container, g);
+		if (grid.getSelectedRoom().unlocked == true) {
+			if (direction.equals("north")) {
+				setGraphic(image = sheet.getSprite(5, 13).getScaledCopy(4.0f));
+			}
+		}
 	}
 
 	@Override

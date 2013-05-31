@@ -25,6 +25,8 @@ public class InventoryGrid {
 	public Point selectedPoint;
 	private AngelCodeFont font;
 	private float x, y;
+	private boolean canChange = true;
+	private Point grabbedPoint;
 	
 	public InventoryGrid() throws SlickException {
 		
@@ -61,7 +63,11 @@ public class InventoryGrid {
 		for (int j = 0; j < 5; j ++) {
 			for (int i = 0; i < 5; i ++) {
 				if (items[i][j] != null) {
-					items[i][j].draw(new Point(i, j), g);
+					if (items[i][j].selected) {
+						items[i][j].drawExact(new Point(x, y), g);
+					} else {
+						items[i][j].draw(new Point(i, j), g);
+					}
 				}
 			}
 		}
@@ -123,6 +129,28 @@ public class InventoryGrid {
 					System.out.println("click");
 					items[(int) selectedPoint.x][(int) selectedPoint.y].use();
 					items[(int) selectedPoint.x][(int) selectedPoint.y] = null;
+				}
+			}
+			
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+				if (items[(int) selectedPoint.x][(int) selectedPoint.y]!= null) {
+					if (canChange) {
+						grabbedPoint = new Point((int) selectedPoint.x, (int) selectedPoint.y);
+						System.out.println("grabbed");
+					} else {
+						System.out.println("can't grab");
+					}
+					canChange = false;
+					items[(int) grabbedPoint.x][(int) grabbedPoint.y].selected = true;
+				}
+			} if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) != true && grabbedPoint != null) {
+				canChange = true;
+				if (items[(int) grabbedPoint.x][(int) grabbedPoint.y] != null) {
+					items[(int) grabbedPoint.x][(int) grabbedPoint.y].selected = false;					
+					if (items[(int) selectedPoint.x][(int) selectedPoint.y] == null) {
+						items[(int) selectedPoint.x][(int) selectedPoint.y] = items[(int) grabbedPoint.x][(int) grabbedPoint.y];
+						items[(int) grabbedPoint.x][(int) grabbedPoint.y] = null;
+					} 
 				}
 			}
 		}

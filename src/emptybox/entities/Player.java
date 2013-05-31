@@ -44,7 +44,7 @@ public class Player extends Entity {
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
 		setGraphic(sprite);
-		setHitBox(0, 15, 32, 17);
+		setHitBox(8, 15, 28, 17);
 		this.grid = grid;
 		level = 1;
 		
@@ -177,7 +177,7 @@ public class Player extends Entity {
 			dead = true;
 		}
 
-		if (check(SHOOT_UP) && attackTimer >= 30) {
+		if (check(SHOOT_UP) && attackTimer >= 5) {
 			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north",
 					range, damage, grid));
 			attackTimer = 0;

@@ -19,7 +19,6 @@ public class CrazySkull extends Monster {
 
 	Player player;
 	private Image sprite;
-	private int angle = 0;
 	private int health = 7;
 	private double rand = Math.random() * 360;
 	Point point = new Point((float) Math.cos(Math.toRadians(rand)), (float) Math.sin(Math.toRadians(rand)));

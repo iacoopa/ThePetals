@@ -27,6 +27,7 @@ public class Item extends Entity{
 	public Rectangle rectangle;
 	protected AngelCodeFont font;
 	protected Input input;
+	public boolean selected = false;
 	
 	public Item(float x, float y, Player p) throws SlickException {
 		super(x, y);
@@ -74,6 +75,10 @@ public class Item extends Entity{
 	
 	public void draw(Point v, Graphics g) {
 		sprite.draw(304 + (v.x * 40), 304 + (v.y * 40));
+	}
+	
+	public void drawExact(Point v, Graphics g) {
+		sprite.draw(v.x, v.y);
 	}
 	
 	public void use() {

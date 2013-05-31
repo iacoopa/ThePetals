@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.generator.Generator;
+import emptybox.world.StartState;
 
 public class Main extends StateBasedGame {
 
@@ -18,7 +19,8 @@ public class Main extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		generator = new Generator(container, this);
-		addState(generator.generate(0));
+		addState(new StartState(0, container, this));
+		addState(generator.generate(1));
 	}
 	
 	public static void main(String[] argv) {
@@ -28,6 +30,7 @@ public class Main extends StateBasedGame {
 			container.setDisplayMode(800, 600, false);
 			container.setTargetFrameRate(60);
 			container.start();
+			
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
