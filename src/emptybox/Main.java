@@ -7,6 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.generator.Generator;
 import emptybox.world.StartState;
+import emptybox.world.SuccessState;
 
 public class Main extends StateBasedGame {
 
@@ -21,6 +22,7 @@ public class Main extends StateBasedGame {
 		generator = new Generator(container, this);
 		addState(new StartState(0, container, this));
 		addState(generator.generate(1));
+		addState(new SuccessState(3, container, this));
 	}
 	
 	public static void main(String[] argv) {

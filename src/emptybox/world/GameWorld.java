@@ -16,6 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.entities.Door;
 import emptybox.entities.Player;
+import emptybox.entities.Stairs;
 import emptybox.generator.Generator;
 import emptybox.generator.Room;
 import emptybox.map.MapGrid;
@@ -30,6 +31,7 @@ public class GameWorld extends World {
 	private AngelCodeFont font;
 	private StateBasedGame game;
 	private Generator generator;
+	private Room exitRoom;
 
 	public GameWorld(int id, GameContainer container, StateBasedGame game, Generator generator) throws SlickException {
 		super(id, container);
@@ -49,6 +51,13 @@ public class GameWorld extends World {
 			r.entities.add(player);
 		}
 		addEnemies();
+		game.addState(new FailureState(2, container, game, player));
+		
+		for (Room r : rooms) {
+			if (r.exit) {
+				exitRoom = r;
+			}
+		}
 	}
 
 	@Override
@@ -70,6 +79,7 @@ public class GameWorld extends World {
 		font.drawString(15, 30, "Health: " + player.health + "/" + player.maxHealth);
 		font.drawString(15, 45, "Damage: " + player.damage + "");
 		font.drawString(15, 60, "Range: " + player.range + "");
+		font.drawString(15, 75, "Atk Speed: " + player.maxAttackTimer + "");
 		
 		g.translate(-1216 + grid.distance(), 0);
 	}
@@ -110,10 +120,20 @@ public class GameWorld extends World {
 		}
 		
 		if (player.dead) {
-			game.addState(generator.generate(1));
-			game.enterState(1);
+			
+			game.addState(generator.generate(game.getStateCount() + 1));
+			game.enterState(game.getStateCount());
 		}
 		
+		for (int i = 0; i < rooms.size() + 1; i++) {
+			if (rooms.get(i).unlocked) {
+				if (i == rooms.size()) {
+					exitRoom.entities.add(new Stairs(400, 400, game));
+				}
+			} else {
+				break;
+			}
+		}
 	}
 
 	public void addDoors() {
@@ -140,45 +160,4 @@ public class GameWorld extends World {
 			r.addEnemies();
 		}
 	}
-	
-	/*public void addEnemies() throws SlickException {
-		
-		
-		for (Room r : grid.grid.values()) {
-			if (r.start != true) {
-				int rand = (int) (Math.random() * 3);
-				switch (rand) {
-					case 0:
-						Bat bat = new Bat(64, 213, player, 5); // top left
-						r.entities.add(bat);
-						r.enemies.add(bat);
-						// Bat bat1 = new Bat(736, 213, player, 5); // top right
-						// r.entities.add(bat1);
-						// r.enemies.add(bat1);
-						//Bat bat2 = new Bat(64, 536, player, 5); // bottom left
-						//r.entities.add(bat2);
-						//r.enemies.add(bat2);
-						Bat bat3 = new Bat(736, 536, player, 5); // bottom right
-						r.entities.add(bat3);
-						r.enemies.add(bat3);
-						break;
-					case 1:
-						Slime s1 = new Slime(280, 400, player, 8);
-						Slime s2 = new Slime(500, 400, player, 8);
-						Bat b1 = new Bat(400, 400, player, 5);
-						r.entities.add(b1);
-						r.enemies.add(b1);
-						r.entities.add(s1);
-						r.enemies.add(s1);
-						r.entities.add(s2);
-						r.enemies.add(s2);
-						break;
-					case 2:
-						Wyvern w1 = new Wyvern (400, 500, player, 15);
-						r.entities.add(w1);
-						r.enemies.add(w1);
-				}
-			}
-		}
-	}*/
  }

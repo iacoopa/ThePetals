@@ -25,22 +25,26 @@ public class Player extends Entity {
 	private Image sprite;
 	private String UP, DOWN, LEFT, RIGHT, SHOOT_UP, SHOOT_DOWN, SHOOT_LEFT,
 			SHOOT_RIGHT, INVENTORY, SKILL1;
-	public int health, range, damage, maxHealth, attackTimer, hitTimer, level, skill1Cooldown;
+	public int health, range, damage, maxHealth, attackTimer, hitTimer, maxAttackTimer, level, skill1Cooldown;
 	public MapGrid grid;
 	public Inventory inventory = new Inventory();
-	public boolean dead;
+	public boolean dead = false;
 	private List<Skill> skills = new ArrayList<Skill>();
 	public Item helmet, armor, weapon;
 	private Image blankHelmet, blankArmor, blankWeapon;
+	private StateBasedGame game;
 
 	public Player(float x, float y,
 			MapGrid grid, StateBasedGame state) throws SlickException {
 		super(x, y);
+		this.game = state;
 		this.health = 15;
 		this.maxHealth = 15;
 		this.range = 350;
 		this.damage = 1;
 		this.hitTimer = 60;
+		this.maxAttackTimer = 20;
+		
 		sheet = new SpriteSheet("res/images/lofi_char.png", 8, 8);
 		sprite = sheet.getSprite(0, 29).getScaledCopy(4.0f);
 		setGraphic(sprite);
@@ -174,25 +178,69 @@ public class Player extends Entity {
 		}
 
 		if (health <= 0) {
-			dead = true;
+			game.enterState(2);
 		}
 
-		if (check(SHOOT_UP) && attackTimer >= 5) {
-			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north",
-					range, damage, grid));
-			attackTimer = 0;
-		} else if (check(SHOOT_DOWN) && attackTimer >= 30) {
-			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "south",
-					range, damage, grid));
-			attackTimer = 0;
-		} else if (check(SHOOT_RIGHT) && attackTimer >= 30) {
-			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "east", range,
-					damage, grid));
-			attackTimer = 0;
-		} else if (check(SHOOT_LEFT) && attackTimer >= 30) {
-			grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "west", range,
-					damage, grid));
-			attackTimer = 0;
+		if (check(SHOOT_UP) && attackTimer >= maxAttackTimer) {
+			if (weapon != null && weapon.wand) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "northwest",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "northeast",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+			else {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "north",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+		} else if (check(SHOOT_DOWN) && attackTimer >= maxAttackTimer) {
+			if (weapon != null && weapon.wand) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "southwest",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "southeast",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "south",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+			else {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "south",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+		} else if (check(SHOOT_RIGHT) && attackTimer >= maxAttackTimer) {
+			if (weapon != null && weapon.wand) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "northeast",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "southeast",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "east",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+			else {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "east",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+		} else if (check(SHOOT_LEFT) && attackTimer >= maxAttackTimer) {
+			if (weapon != null && weapon.wand) {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "northwest",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "southwest",
+						range, damage, grid));
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "west",
+						range, damage, grid));
+				attackTimer = 0;
+			}
+			else {
+				grid.getSelectedRoom().entities.add(new Shot(x, y + 3, "west",
+						range, damage, grid));
+				attackTimer = 0;
+			}
 		}
 
 		if (collide("item", x, y) != null) {
@@ -231,18 +279,22 @@ public class Player extends Entity {
 		maxHealth = 15;
 		range = 350;
 		damage = 1;
+		maxAttackTimer = 20;
 		if (helmet != null) {
 			maxHealth += helmet.healthBoost;
 			damage += helmet.damageBoost;
 			range += helmet.rangeBoost;
+			maxAttackTimer += helmet.speedBoost;
 		} if (armor != null) {
 			maxHealth += armor.healthBoost;
 			damage += armor.damageBoost;
 			range += armor.rangeBoost;
+			maxAttackTimer += armor.speedBoost;
 		} if (weapon != null) {
 			maxHealth += weapon.healthBoost;
 			damage += weapon.damageBoost;
 			range += weapon.rangeBoost;
+			maxAttackTimer += weapon.speedBoost;
 		}
 	}
 }

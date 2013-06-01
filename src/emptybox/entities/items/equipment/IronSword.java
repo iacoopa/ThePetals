@@ -1,10 +1,8 @@
 package emptybox.entities.items.equipment;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
 
 import emptybox.entities.Player;
 import emptybox.entities.items.Item;
@@ -19,13 +17,14 @@ public class IronSword extends Item {
 		healthBoost = 0;
 		damageBoost = 2;
 		rangeBoost = -50;
+		speedBoost = 10;
 		
 		setGraphic(sprite.getScaledCopy(0.75f));
 		slot = 2;
 		addType("item");
 		
 		name = "Iron Sword";
-		description = "Sword made of \niron.\n\nDamage + " + damageBoost + ".\nRange - " + rangeBoost + ".";
+		description = "Sword made of \niron.\n\nDamage + " + damageBoost + ".\nRange - " + rangeBoost + ".\nAtk Speed - " + (int)Math.abs(speedBoost) + ".";
 	}
 	
 	public void update(GameContainer container, int delta) {

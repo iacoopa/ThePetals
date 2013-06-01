@@ -14,6 +14,7 @@ import emptybox.entities.Player;
 import emptybox.entities.Shot;
 import emptybox.entities.items.BlueFlame;
 import emptybox.entities.items.Item;
+import emptybox.entities.items.equipment.MagicWand;
 
 public class CrazySkull extends Monster {
 
@@ -35,6 +36,7 @@ public class CrazySkull extends Monster {
 		setHitBox(0, 0, 32, 32);
 		
 		dropList.add(new BlueFlame(x,y, player));
+		dropList.add(new MagicWand(x, y, player));
 	}
 	
 	public void render(GameContainer container, Graphics g) throws SlickException {
@@ -45,24 +47,6 @@ public class CrazySkull extends Monster {
 		super.update(container, delta);
 		
 		randomAngle(point, rand);
-		
-		if (health <= 0) {
-			
-			double rand = (Math.random() * dropList.size() * 2);
-			System.out.println((int) rand % 2 + " " + (int) rand/2);
-			
-			if ((int)rand % 2 == 0) {
-				Item dropItem = dropList.get((int) rand/2);
-				
-				dropItem.setPosition(new Vector2f(x, y));
-				
-				player.grid.getSelectedRoom().entities.add(dropItem);
-			} 
-			player.level ++;
-			destroy();
-			player.grid.getSelectedRoom().entities.remove(this);
-			player.grid.getSelectedRoom().enemies.remove(this);
-		}
 		
 		if (health <= 0) {
 			

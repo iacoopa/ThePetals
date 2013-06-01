@@ -66,11 +66,11 @@ public class Monster extends Entity {
 		
 		if (collide(SOLID, x += speed * trans.x, y) != null) {
 			trans.x = (float) (-trans.x);
-			trans.y += (float) (Math.random() * 0.05) - 0.025;
+			trans.y += (float) (Math.random() * 0.7) - .35;
 		}
 		if (collide(SOLID, x, y += speed * trans.y) != null) { 
 			trans.y = (float) (-trans.y);
-			trans.x += (float) (Math.random() * 0.05) - 0.025;
+			trans.x += (float) (Math.random() * 0.7) - .35;
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class Monster extends Entity {
 	
 	protected void shoot() throws SlickException {
 		player.grid.getSelectedRoom().entities.add(new EnemyShot(x + 32, y + 16,
-				new Vector2f(x, y), new Vector2f(player.x + 16, player.y + 10), 350,
+				new Vector2f(x, y), new Vector2f(player.x + 5, player.y), 350,
 				player.grid));
 	}
 

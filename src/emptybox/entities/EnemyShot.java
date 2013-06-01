@@ -21,17 +21,17 @@ public class EnemyShot extends Entity {
 	private Animation deathAnim;
 	private boolean dead;
 	private Vector2f trans;
-	private float speed = 1.8f;
+	private float speed = 2.2f;
 
 	public EnemyShot(float x, float y, Vector2f start, Vector2f dest, int range, MapGrid grid) throws SlickException {
 		super(x, y);
-		dead = false;
+		dead = false;  
 		
 		addType("enemyshot");
 		
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
-		setHitBox(16, 16, 12, 12);
+		setHitBox(8, 8, 12, 12);
 		
 		sprite = sheet.getSprite(6, 13).getScaledCopy(4.0f);
 		

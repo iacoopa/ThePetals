@@ -21,13 +21,14 @@ public class Item extends Entity{
 	private boolean top, bottom, center;
 	protected Image sprite;
 	public String name, description;
-	public int damageBoost, healthBoost, rangeBoost;
+	public int damageBoost, healthBoost, rangeBoost, speedBoost;
 	protected Player player;
 	public int slot = 0;
 	public Rectangle rectangle;
 	protected AngelCodeFont font;
 	protected Input input;
 	public boolean selected = false;
+	public boolean wand;
 	
 	public Item(float x, float y, Player p) throws SlickException {
 		super(x, y);
@@ -100,9 +101,8 @@ public class Item extends Entity{
 		if (rectangle.contains(input.getMouseX(), input.getMouseY())) {
 			g.setColor(new Color(102, 102, 102, 127));
 			g.fillRect(x, y, 150, 150);
-			font.drawString(x + 30, y + 5, name);
+			font.drawString(x + ( 70 - (font.getWidth(name) / 2)), y + 5, name);
 			font.drawString(x + 5, y + 25, description);
-
 		}
 	}
 

@@ -7,24 +7,25 @@ import org.newdawn.slick.SpriteSheet;
 import emptybox.entities.Player;
 import emptybox.entities.items.Item;
 
-public class WoodenBow extends Item {
+public class MagicWand extends Item {
 
-	public WoodenBow(float x, float y, Player p) throws SlickException {
+	public MagicWand(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
 		SpriteSheet sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
-		sprite = sheet.getSprite(0, 4).getScaledCopy(4.0f);
+		sprite = sheet.getSprite(12, 3).getScaledCopy(4.0f);
 		
 		healthBoost = 0;
 		damageBoost = 1;
-		rangeBoost = 50;
-		speedBoost = -5;
+		rangeBoost = -25;
+		speedBoost = 10;
 		
 		setGraphic(sprite.getScaledCopy(0.75f));
 		slot = 2;
+		wand = true;
 		addType("item");
 		
-		name = "Wooden Bow";
-		description = "Bow made of \nwood.\n\nDamage + " + damageBoost + ".\nRange + " + rangeBoost + ".\nAtk Speed + " + (int)Math.abs(speedBoost) + ".";
+		name = "Magic Wand";
+		description = "A wooden wand/nimbued with magic. + " + damageBoost + ".\nRange - " + rangeBoost + ".";
 	}
 	
 	public void update(GameContainer container, int delta) {

@@ -21,7 +21,7 @@
  </tileset>
  <layer name="collision" width="25" height="13">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYCQBM5ConlSMDMjRn0kDPNB2EONXctTQ2h8MNLKDAcl8WtqBbA8t4oMBj9xQTrv0yOe0LK8A3bNEPg==
+   eJxjZGBgYBxEGBmQoz+TBnig7SDGr+SoobU/GGhkB8MA20Gt+GDAIzeU0y498jktMQDnG0RC
   </data>
  </layer>
  <layer name="spawner" width="25" height="13">
