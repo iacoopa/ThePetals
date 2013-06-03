@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="13" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="collision" tilewidth="32" tileheight="32">
+  <image source="collision.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="hifi_map" tilewidth="32" tileheight="32">
+  <image source="hifi_map.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="258" name="hifi_char" tilewidth="32" tileheight="32">
+  <image source="hifi_char.png" width="512" height="992"/>
+  <tile id="178">
+   <properties>
+    <property name="monster" value="slime"/>
+   </properties>
+  </tile>
+  <tile id="206">
+   <properties>
+    <property name="monster" value="bat"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYKQDpiUYtYO6dmTSwQ5K7SXWjkwSzSXHDkrAqB2k20FrDADOfAHt
+  </data>
+ </layer>
+ <layer name="spawner" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRAAMABRQAAQ==
+  </data>
+ </layer>
+ <layer name="floor" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzLZGBgyMKCM5EwNnlCmFL9o3gUjwQ8mj9IDy90TG07AK9yhoY=
+  </data>
+ </layer>
+ <layer name="Walls" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJwTYmBgEKIDpiUYtYN6dlAjTomRLyICU2oHrf1BDTBqB+l20BoDAGzBCsM=
+  </data>
+ </layer>
+ <layer name="Objects" width="25" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRAAMABRQAAQ==
+  </data>
+ </layer>
+</map>
