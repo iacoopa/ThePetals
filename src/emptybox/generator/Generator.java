@@ -26,7 +26,7 @@ public class Generator {
 	public GameWorld generate(int id) throws SlickException {
 		world = new GameWorld(id, container, game, this);
 		startingRoom = new Room(38 / 2, 38 / 2, 0, new BlockMap(
-				"/res/images/map.tmx", 0, 192));
+				"res/images/map.tmx", 0, 192));
 		startingRoom.start = true;
 		grid = new MapGrid(38, 38, new Rectangle(
 				(startingRoom.gridX * 32) - 100,
@@ -46,23 +46,23 @@ public class Generator {
 			switch (direction) {
 			case 0:
 				room = new Room(lastRoom.gridX, lastRoom.gridY - 1, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // north" +	
+						new BlockMap("res/images/map" + map + ".tmx", 0, 192)); // north" +	
 				break;
 			case 1:
 				room = new Room(lastRoom.gridX, lastRoom.gridY + 1, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // south
+						new BlockMap("res/images/map" + map + ".tmx", 0, 192)); // south
 				break;
 			case 2:
 				room = new Room(lastRoom.gridX + 1, lastRoom.gridY, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // east
+						new BlockMap("res/images/map" + map + ".tmx", 0, 192)); // east
 				break;
 			case 3:
 				room = new Room(lastRoom.gridX - 1, lastRoom.gridY, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // west
+						new BlockMap("res/images/map" + map + ".tmx", 0, 192)); // west
 				break;
 			default:
 				room = new Room(lastRoom.gridX, lastRoom.gridY - 1, i,
-						new BlockMap("/res/images/map" + map + ".tmx", 0, 192)); // default
+						new BlockMap("res/images/map" + map + ".tmx", 0, 192)); // default
 																	  // (north)
 				break;
 			}

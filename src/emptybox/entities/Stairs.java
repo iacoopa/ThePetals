@@ -6,7 +6,6 @@ import it.marteEngine.entity.Entity;
 import java.awt.geom.Rectangle2D;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
@@ -40,6 +39,7 @@ public class Stairs extends Entity {
 	
 	public void collisionResponse(Entity other) {
 		try {
+			@SuppressWarnings("unused")
 			Player player = (Player) other;
 			
 			game.enterState(3);

@@ -17,7 +17,7 @@ public class RedPotion extends Item {
 
 		this.p = p;
 		
-		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj.png", 8, 8);
+		SpriteSheet sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		
 		sprite = sheet.getSprite(12, 0).getScaledCopy(4.0f);
 		

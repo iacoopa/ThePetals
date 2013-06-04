@@ -12,7 +12,7 @@ public class WyvernHorn extends Item {
 	public WyvernHorn(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
 		
-		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj.png", 8, 8);
+		SpriteSheet sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 	
 		sprite = sheet.getSprite(0, 15).getScaledCopy(4.0f);
 		

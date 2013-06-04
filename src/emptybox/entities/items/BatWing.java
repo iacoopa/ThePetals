@@ -12,7 +12,7 @@ public class BatWing extends Item {
 	public BatWing(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
 		
-		SpriteSheet sheet = new SpriteSheet("/res/images/lofi_obj_packA.png", 8, 8);
+		SpriteSheet sheet = new SpriteSheet("res/images/lofi_obj_packA.png", 8, 8);
 	
 		sprite = sheet.getSprite(0, 2).getScaledCopy(4.0f);
 		

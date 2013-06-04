@@ -14,6 +14,7 @@ import emptybox.entities.Player;
 import emptybox.entities.Shot;
 import emptybox.entities.items.BlueFlame;
 import emptybox.entities.items.Item;
+import emptybox.entities.items.equipment.IronKnife;
 import emptybox.entities.items.equipment.MagicWand;
 
 public class CrazySkull extends Monster {
@@ -37,6 +38,7 @@ public class CrazySkull extends Monster {
 		
 		dropList.add(new BlueFlame(x,y, player));
 		dropList.add(new MagicWand(x, y, player));
+		dropList.add(new IronKnife(x, y, player));
 	}
 	
 	public void render(GameContainer container, Graphics g) throws SlickException {
