@@ -37,9 +37,9 @@ public class Generator {
 		
 		lastRoom = startingRoom;
 
-		for (int i = 1; i <= (100 + Math.random() * 200); i++) {
+		for (int i = 1; i <= (50 + Math.random() * 50); i++) {
 			int direction = (int) (Math.random() * (4));
-			int map =  (int) (Math.random() * 3);
+			int map =  (int) (Math.random() * 4);
 			
 			Room room = null;
 

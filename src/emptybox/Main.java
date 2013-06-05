@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import emptybox.generator.Generator;
+import emptybox.world.FailureState;
 import emptybox.world.StartState;
 import emptybox.world.SuccessState;
 

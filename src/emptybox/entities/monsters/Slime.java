@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import emptybox.entities.Player;
 import emptybox.entities.Shot;
+import emptybox.entities.items.Item;
 import emptybox.entities.items.RedPotion;
 import it.marteEngine.entity.Entity;
 
@@ -57,11 +58,11 @@ public class Slime extends Monster {
 		
 		if (health <= 0) {
 			
-			double rand = (Math.random() * dropList.size() * 2);
-			System.out.println((int) rand % 2 + " " + (int) rand/2);
+			double rand = (Math.random() * dropList.size() * 3);
+			System.out.println((int) rand % 3 + " " + (int) rand/3);
 			
-			if ((int)rand % 2 == 0) {
-				Item dropItem = dropList.get((int) rand/2);
+			if ((int)rand % 3 == 0) {
+				Item dropItem = dropList.get((int) rand / 3);
 				
 				dropItem.setPosition(new Vector2f(x, y));
 				

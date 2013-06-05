@@ -10,6 +10,7 @@ import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
@@ -32,6 +33,7 @@ public class GameWorld extends World {
 	private StateBasedGame game;
 	private Generator generator;
 	private Room exitRoom;
+	private Input input;
 
 	public GameWorld(int id, GameContainer container, StateBasedGame game, Generator generator) throws SlickException {
 		super(id, container);
@@ -40,6 +42,7 @@ public class GameWorld extends World {
 		font = new AngelCodeFont("res/font.fnt", "res/font_0.png");
 		this.game = game;
 		this.generator = generator;
+		input = container.getInput();
 	}
 
 	public void setGrid(MapGrid grid) throws SlickException {
@@ -51,7 +54,7 @@ public class GameWorld extends World {
 			r.entities.add(player);
 		}
 		addEnemies();
-		game.addState(new FailureState(2, container, game, player));
+		game.addState(new FailureState(2, container, game, generator, player));
 		
 		for (Room r : rooms) {
 			if (r.exit) {
@@ -87,6 +90,10 @@ public class GameWorld extends World {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		super.update(container, game, delta);
+		
+		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+			player.dead = true;
+		}
 								
 		for (Entity e : grid.getSelectedRoom().entities) {
 			if (!getEntities().contains(e)) {
@@ -120,7 +127,6 @@ public class GameWorld extends World {
 		}
 		
 		if (player.dead) {
-			
 			game.addState(generator.generate(game.getStateCount() + 1));
 			game.enterState(game.getStateCount());
 		}
