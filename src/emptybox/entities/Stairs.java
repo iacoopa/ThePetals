@@ -23,7 +23,7 @@ public class Stairs extends Entity {
 		this.width = 32;
 		this.height = 32;
 		SpriteSheet sheet = new SpriteSheet("res/images/hifi_map.png", 32, 32);
-		setGraphic(sheet.getSprite(0, 8));
+		setGraphic(sheet.getSprite(8, 0));
 		setHitBox(0, 0, width, height);
 		collidable = true;
 		addType(SOLID);
