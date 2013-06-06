@@ -12,18 +12,18 @@ public class IronKnife extends Item {
 	public IronKnife(float x, float y, Player p) throws SlickException {
 		super(x, y, p);
 		SpriteSheet sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
-		sprite = sheet.getSprite(5, 3).getScaledCopy(4.0f);
+		sprite = sheet.getSprite(14, 2).getScaledCopy(4.0f);
 		
 		healthBoost = 0;
 		damageBoost = 1;
 		rangeBoost = -70;
-		speedBoost = -20;
+		speedBoost = -10;
 		
 		setGraphic(sprite.getScaledCopy(0.75f));
 		slot = 2;
 		addType("item");
 		
-		name = "Lmofe Sword";
+		name = "Iron Knife";
 		description = "Knife made of \niron.\n\nDamage + " + damageBoost + ".\nRange - " + rangeBoost + ".\nAtk Speed + " + (int)Math.abs(speedBoost) + ".";
 	}
 	
