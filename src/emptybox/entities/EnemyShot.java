@@ -31,7 +31,7 @@ public class EnemyShot extends Entity {
 		
 		sheet = new SpriteSheet("res/images/lofi_obj.png", 8, 8);
 		this.deathAnim = new Animation(sheet, 0, 9, 10, 9, true, 60, true);
-		setHitBox(0, 0, 16, 16);
+		setHitBox(0, 0, 32, 32);
 		
 		sprite = sheet.getSprite(6, 13).getScaledCopy(4.0f);
 		

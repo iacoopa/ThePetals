@@ -61,6 +61,8 @@ public class GameWorld extends World {
 				exitRoom = r;
 			}
 		}
+		
+		exitRoom.entities.add(new Stairs(400, 498, game));
 	}
 
 	@Override
@@ -129,16 +131,6 @@ public class GameWorld extends World {
 		if (player.dead) {
 			game.addState(generator.generate(game.getStateCount() + 1));
 			game.enterState(game.getStateCount());
-		}
-		
-		for (int i = 0; i < rooms.size() + 1; i++) {
-			if (rooms.get(i).unlocked) {
-				if (i == rooms.size()) {
-					exitRoom.entities.add(new Stairs(400, 400, game));
-				}
-			} else {
-				break;
-			}
 		}
 	}
 

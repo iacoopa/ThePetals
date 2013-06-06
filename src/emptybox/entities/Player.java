@@ -38,8 +38,8 @@ public class Player extends Entity {
 			MapGrid grid, StateBasedGame state) throws SlickException {
 		super(x, y);
 		this.game = state;
-		this.health = 8;
-		this.maxHealth = 8;
+		this.health = 10;
+		this.maxHealth = 10;
 		this.range = 350;
 		this.damage = 1;
 		this.hitTimer = 60;
@@ -276,7 +276,7 @@ public class Player extends Entity {
 	}
 	
 	public void recalcStats() {
-		maxHealth = 15;
+		maxHealth = 10;
 		range = 350;
 		damage = 1;
 		maxAttackTimer = 20;

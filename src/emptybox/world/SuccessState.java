@@ -39,10 +39,10 @@ public class SuccessState extends World {
 		
 		font.drawString(400 - (font.getWidth(title) / 2), 200, title);
 		font.drawString(400 - (font.getWidth(body) / 2), 215, body);
-		font.drawString(400 - (font.getWidth(bonus) / 2), 400, bonus);
-		font.drawString(400 - (font.getWidth(password) / 2), 415, password);
+		font.drawString(400 - (font.getWidth(bonus) / 2), 300, bonus);
+		font.drawString(400 - (font.getWidth(password) / 2), 315, password);
 		if (showSecret) {
-			font.drawString(400 - (font.getWidth(secret) / 2), 430, secret);
+			font.drawString(400 - (font.getWidth(secret) / 2), 330, secret);
 		}
 	}
 	
